@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:material_symbols_icons/material_symbols_icons.dart';
-// import 'pages/card_page.dart';
+import 'package:flutter/scheduler.dart';
+import 'pages/acheivement.dart';
+import 'pages/cardCollection.dart';
+import 'pages/conversation.dart';
+import 'pages/tips.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,202 +23,186 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final int selectedIndex;
+  const MainScreen({super.key, this.selectedIndex = 1});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
-  // Define the pages for each tab
-  final List<Widget> _pages = [
-    // const CardPage(),
-    const Center(child: Text('Acheivement', style: TextStyle(fontSize: 20))),
-    const Center(
-      child: Text('Card Collections', style: TextStyle(fontSize: 20)),
-    ),
-    const Center(
-      child: Text('Tips and Tricks', style: TextStyle(fontSize: 20)),
-    ),
-    const Center(child: Text('Conversation', style: TextStyle(fontSize: 20))),
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
+
+  final List<String> _titles = [
+    "Achievement",
+    "Card Collections",
+    "Tips & Tricks",
+    "Conversation",
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    Navigator.of(
+      context,
+    ).pushReplacement(_fadeRoute(MainScreen(selectedIndex: index)));
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: _pages[_selectedIndex], // Show the selected page
-  //     bottomNavigationBar: BottomNavigationBar(
-  //       backgroundColor: Color(0xFF8806D8),
-  //       items: [
-  //         BottomNavigationBarItem(
-  //           icon: Image.asset(
-  //             'assets/icons/editor_choice.png',
-  //             width: 24,
-  //             height: 24,
-  //           ),
-  //           label: 'Tropy',
-  //         ),
-  //         BottomNavigationBarItem(
-  //           icon: Image.asset('assets/icons/card.png',
-  //           width: 24,
-  //           height: 24,
-  //           ),
-  //           label: 'Card',
-  //         ),
-  //         BottomNavigationBarItem(
-  //           icon: Image.asset('assets/icons/tips.png',
-  //           width: 24,
-  //           height: 24
-  //           ),
-  //           label: 'Tips and Tricks',
-  //         ),
-  //         BottomNavigationBarItem(
-  //           icon: Image.asset(
-  //             'assets/icons/conversation.png',
-  //             width: 24,
-  //             height: 24,
-  //           ),
-  //           label: 'conversation',
-  //         ),
-  //       ],
-  //       currentIndex: _selectedIndex,
-  //       onTap: _onItemTapped,
-  //     ),
-  //   );
+  Widget _getBody(int index) {
+    switch (index) {
+      case 0:
+        return const AchievementPage();
+      case 1:
+        return const CardCollectionPage();
+      case 2:
+        return const TipsPage();
+      case 3:
+        return const ConversationPage();
+      default:
+        return const AchievementPage();
+    }
+  }
+
+  Widget _buildNavItem({required int index, required String assetPath}) {
+    final bool isSelected = _selectedIndex == index;
+
+    return InkWell(
+      onTap: () {
+        _onItemTapped(index);
+      },
+      borderRadius: BorderRadius.circular(50),
+
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isSelected ? Colors.purpleAccent : Colors.transparent,
+        ),
+        padding: const EdgeInsets.all(12),
+        child: Image.asset(
+          assetPath,
+          width: 60,
+          height: 60,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  // with Logo
+  // Alignment _getAlignByIndex(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       return Alignment(-0.95, 0); // ซ้ายสุด
+  //     case 1:
+  //       return Alignment(-0.6, 0); // ซ้ายกลาง
+  //     case 2:
+  //       return Alignment(0.53, 0); // ขวากลาง
+  //     case 3:
+  //       return Alignment(0.95, 0); // ขวาสุด
+  //     default:
+  //       return Alignment.center;
+  //   }
   // }
+
+  Alignment _getAlignByIndex(int index) {
+    switch (index) {
+      case 0:
+        return Alignment(-0.92, 0); // ซ้ายสุด
+      case 1:
+        return Alignment(-0.35, 0); // ซ้ายกลาง
+      case 2:
+        return Alignment(0.3, 0); // ขวากลาง
+      case 3:
+        return Alignment(0.9, 0); // ขวาสุด
+      default:
+        return Alignment.center;
+    }
+  }
+
+  PageRouteBuilder _fadeRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], // แสดงหน้าที่เลือก
-      bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.all(4),
-        shape: const CircularNotchedRectangle(), // ทำให้มีรอยเว้า
-        notchMargin: 8, // ระยะห่างระหว่าง FAB กับ BottomBar
-        color: Color(0xFF8806D8), // สีของ BottomBar
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            InkWell(
-              onTap: () {
-                setState(() {
-                  _selectedIndex = 0;
-                });
-              },
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                padding: EdgeInsets.all(12), // ปรับขนาดพื้นที่ปุ่ม
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      _selectedIndex == 0
-                          ? Colors.purpleAccent
-                          : Colors.transparent,
-                ),
-                child: Image.asset(
-                  'assets/icons/editor_choice.png',
-                  width: 52,
-                  height: 52,
-                  color: Colors.white,
+      body: Stack(
+        children: [
+          _getBody(_selectedIndex),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: _getAlignByIndex(_selectedIndex),
+              child: Text(
+                _titles[_selectedIndex],
+                style: const TextStyle(
+                  color: Colors.purple,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  _selectedIndex = 1;
-                });
-              },
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      _selectedIndex == 1
-                          ? Colors.purpleAccent
-                          : Colors.transparent,
-                ),
-                child: Image.asset(
-                  'assets/icons/card.png',
-                  width: 52,
-                  height: 52,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(width: 45), // Logo icon
-            InkWell(
-              onTap: () {
-                setState(() {
-                  _selectedIndex = 2;
-                });
-              },
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      _selectedIndex == 2
-                          ? Colors.purpleAccent
-                          : Colors.transparent,
-                ),
-                child: Image.asset(
-                  'assets/icons/tips.png',
-                  width: 52,
-                  height: 52,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  _selectedIndex = 3;
-                });
-              },
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      _selectedIndex == 3
-                          ? Colors.purpleAccent
-                          : Colors.transparent,
-                ),
-                child: Image.asset(
-                  'assets/icons/conversation.png',
-                  width: 52,
-                  height: 52,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Color(0xFF8806D8), // สีของ FAB
-      //   shape: const CircleBorder(),
-      //   child: Image.asset(
-      //     'assets/icons/logo.png',
-      //     width: 52,
-      //     height: 52,
-      //     color: Colors.white,
-      //   ), // ไอคอนตรงกลาง
-      //   onPressed: () => setState(() => _selectedIndex = 2),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 8,
+            color: const Color(0xFF8806D8),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(
+                  index: 0,
+                  assetPath: 'assets/icons/editor_choice.png',
+                ),
+                _buildNavItem(index: 1, assetPath: 'assets/icons/card.png'),
+                // const SizedBox(width: 98),
+                _buildNavItem(index: 2, assetPath: 'assets/icons/tips.png'),
+                _buildNavItem(
+                  index: 3,
+                  assetPath: 'assets/icons/conversation.png',
+                ),
+              ],
+            ),
+          ),
+          // Positioned(
+          //   bottom: 30,
+          //   child: Container(
+          //     width: 98,
+          //     height: 98,
+          //     decoration: BoxDecoration(
+          //       color: Color(0xFF8806D8),
+          //       shape: BoxShape.circle,
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(10),
+          //       child: Image.asset(
+          //         'assets/icons/logo.png',
+          //         width: 40,
+          //         height: 40,
+          //         color: Colors.white,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
+      ),
     );
   }
 }
