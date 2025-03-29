@@ -1,106 +1,9 @@
-// import 'package:flutter/material.dart';
-
-// class CardCollectionPage extends StatelessWidget {
-//   const CardCollectionPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         title: Container(
-//           decoration: BoxDecoration(
-//             color: Colors.grey[200],
-//             borderRadius: BorderRadius.circular(50),
-//           ),
-//           child: const TextField(
-//             decoration: InputDecoration(
-//               hintText: 'Search card',
-//               border: InputBorder.none,
-//               prefixIcon: Icon(Icons.menu),
-//               suffixIcon: Icon(Icons.search),
-//             ),
-//           ),
-//         ),
-//       ),
-
-//       body: Padding(
-//         padding: const EdgeInsets.all(10),
-//         child: GridView.count(
-//           crossAxisCount: 2,
-//           crossAxisSpacing: 10,
-//           mainAxisSpacing: 10,
-//           children: [
-//             buildCard('เก้าอี้', 'Chair', 'assets/chair.png', true),
-//             buildCard('พัดลม', 'Phadlm', 'assets/fan.png', false),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         backgroundColor: Colors.deepPurple,
-//         onPressed: () {},
-//         child: const Icon(Icons.add, color: Colors.white),
-//       ),
-//     );
-//   }
-
-//   Widget buildCard(
-//     String title,
-//     String subtitle,
-//     String imagePath,
-//     bool favorite,
-//   ) {
-//     return Card(
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-//       elevation: 3,
-//       child: Stack(
-//         children: [
-//           ClipRRect(
-//             borderRadius: BorderRadius.circular(15),
-//             child: Image.asset(
-//               imagePath,
-//               fit: BoxFit.cover,
-//               height: double.infinity,
-//             ),
-//           ),
-//           Positioned(
-//             top: 5,
-//             left: 5,
-//             child: Icon(
-//               favorite ? Icons.star : Icons.star_border,
-//               color: favorite ? Colors.amber : Colors.grey,
-//             ),
-//           ),
-//           Positioned(
-//             bottom: 5,
-//             left: 5,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   title,
-//                   style: const TextStyle(fontWeight: FontWeight.bold),
-//                 ),
-//                 Text(subtitle, style: const TextStyle(color: Colors.grey)),
-//               ],
-//             ),
-//           ),
-//           Positioned(
-//             bottom: 5,
-//             right: 5,
-//             child: const Icon(Icons.edit, size: 18, color: Colors.deepPurple),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pic2thai/models/card_model.dart';
+import 'camera.dart';
+import 'checkCardPic.dart';
+import 'acheivement.dart';
 
 class CardCollectionPage extends StatefulWidget {
   const CardCollectionPage({super.key});
@@ -277,7 +180,26 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: เพิ่มหน้าเพิ่มการ์ด
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              pageBuilder:
+                  (context, animation, secondaryAnimation) => CheckCardPic(),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: Offset(1, 0),
+                    end: Offset(0, 0),
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+            ),
+          );
         },
         backgroundColor: Colors.white,
         shape: const CircleBorder(),
