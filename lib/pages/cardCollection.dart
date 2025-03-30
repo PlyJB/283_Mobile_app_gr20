@@ -23,9 +23,10 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _getCards();
+    Future.delayed(Duration.zero, () {
+      _getCards();
+    });
   }
 
   Widget _searchBox() {
@@ -66,32 +67,17 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
         height: 240,
         child: Stack(
           children: [
-            // ⭐ ปุ่ม favorite มุมบนซ้าย
-            Positioned(
-              top: 8,
-              left: 8,
-              child: IconButton(
-                icon: Icon(
-                  card.isFav ? Icons.star : Icons.star_border,
-                  color: card.isFav ? Colors.amber : Colors.grey,
-                  size: 20,
-                ),
-                onPressed: () {
-                  setState(() {
-                    card.isFav = !card.isFav;
-                  });
-                },
-              ),
-            ),
-
             // 🖼️ รูปภาพกลาง
-            Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                card.iconPath,
-                width: 80,
-                height: 80,
-                fit: BoxFit.contain,
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Image.asset(
+                  card.iconPath,
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
 
@@ -140,6 +126,23 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     onPressed: () {},
                   ),
                 ],
+              ),
+            ),
+            // ⭐ ปุ่ม favorite มุมบนซ้าย
+            Positioned(
+              top: 8,
+              left: 8,
+              child: IconButton(
+                icon: Icon(
+                  card.isFav ? Icons.star : Icons.star_border,
+                  color: card.isFav ? Colors.amber : Colors.grey,
+                  size: 20,
+                ),
+                onPressed: () {
+                  setState(() {
+                    card.isFav = !card.isFav;
+                  });
+                },
               ),
             ),
           ],

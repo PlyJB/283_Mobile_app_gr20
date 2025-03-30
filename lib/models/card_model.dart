@@ -22,7 +22,7 @@ class CardModel {
         thaiWord: 'สลัดดดดfffffffffffffffffffff',
         pronunciation: 'sa-lad',
         engWord: 'salad',
-        iconPath: 'assets/picture/plate.svg',
+        iconPath: 'assets/picture/salad.jpg',
       ),
     );
     cards.add(
@@ -30,7 +30,7 @@ class CardModel {
         thaiWord: 'เค้ก',
         pronunciation: 'cake',
         engWord: 'Cake',
-        iconPath: 'assets/picture/pancakes.svg',
+        iconPath: 'assets/picture/cake.jpg',
       ),
     );
     cards.add(
@@ -38,7 +38,7 @@ class CardModel {
         thaiWord: 'พาย',
         pronunciation: 'pie',
         engWord: 'Pie',
-        iconPath: 'assets/picture/pie.svg',
+        iconPath: 'assets/picture/pie.jpg',
       ),
     );
     cards.add(
@@ -46,7 +46,7 @@ class CardModel {
         thaiWord: 'สลัด',
         pronunciation: 'sa-lad',
         engWord: 'salad',
-        iconPath: 'assets/picture/plate.svg',
+        iconPath: 'assets/picture/salad.jpg',
       ),
     );
     cards.add(
@@ -54,7 +54,7 @@ class CardModel {
         thaiWord: 'เค้ก',
         pronunciation: 'cake',
         engWord: 'Cake',
-        iconPath: 'assets/picture/pancakes.svg',
+        iconPath: 'assets/picture/cake.jpg',
       ),
     );
     cards.add(
@@ -62,7 +62,7 @@ class CardModel {
         thaiWord: 'พาย',
         pronunciation: 'pie',
         engWord: 'Pie',
-        iconPath: 'assets/picture/pie.svg',
+        iconPath: 'assets/picture/pie.jpg',
       ),
     );
 
