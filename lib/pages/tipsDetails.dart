@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pic2thai/models/tips_model.dart';
+import 'package:pic2thai/main.dart';
 
 class Tipsdetails extends StatelessWidget {
   final TipsModel tip;
@@ -18,10 +19,15 @@ class Tipsdetails extends StatelessWidget {
         ),
         title: Text(
           tip.title,
-          style: const TextStyle(
-            color: Colors.purple,
+          style:  AppTextStyles.body.copyWith(
+            fontSize: 24,
             fontWeight: FontWeight.bold,
+            color: Colors.purple,
           ),
+          // const TextStyle(
+          //   color: Colors.purple,
+          //   fontWeight: FontWeight.bold,
+          // ),
         ),
         centerTitle: true,
         elevation: 0,
@@ -35,7 +41,12 @@ class Tipsdetails extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Text(
                 tip.articles[index].article,
-                style: const TextStyle(fontSize: 16, height: 1.5),
+                style: AppTextStyles.body.copyWith(
+                  fontSize: 18,
+                  height: 1.5,
+                  color: Colors.black87,
+                ),
+                // const TextStyle(fontSize: 16, height: 1.5),
               ),
             );
           },

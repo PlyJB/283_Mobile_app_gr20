@@ -16,10 +16,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Roboto'),
+      theme: ThemeData(
+        fontFamily: 'CustomFont',
+        textTheme: TextTheme(
+          headlineLarge: AppTextStyles.heading,
+          bodyLarge: AppTextStyles.body,
+    ),
+      ),
       home: const MainScreen(), // Use MainScreen instead of HomePage
     );
   }
+}
+
+class AppTextStyles {
+  static const TextStyle heading = TextStyle(
+    fontFamily: 'Itim',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle body = TextStyle(
+    fontFamily: 'Itim',
+    fontSize: 16,
+  );
 }
 
 class MainScreen extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pic2thai/models/tips_model.dart';
 import 'package:pic2thai/pages/tipsDetails.dart';
+import 'package:pic2thai/main.dart';
 
 class TipsPage extends StatefulWidget {
   TipsPage({super.key});
@@ -98,7 +99,12 @@ class _TipsPageState extends State<TipsPage> {
         child: Text(
           tips.title,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.purple),
+          style: AppTextStyles.body.copyWith(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
+          ),
+          // const TextStyle(color: Colors.purple),
         ),
       ),
     );
@@ -125,7 +131,7 @@ class _TipsPageState extends State<TipsPage> {
             child: Center(
               child: Text(
                 "Tips and Tricks",
-                style: TextStyle(
+                style: AppTextStyles.heading.copyWith(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.purple,

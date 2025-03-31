@@ -4,6 +4,7 @@ import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:pic2thai/pages/acheivement.dart';
+import 'package:pic2thai/main.dart';
 
 class CardCollectionPage extends StatefulWidget {
   const CardCollectionPage({super.key});
@@ -102,12 +103,17 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     Text(
                       card.thaiWord,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: AppTextStyles.heading.copyWith( fontWeight: FontWeight.bold),
+                      // const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       card.pronunciation,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.grey),
+                      style: AppTextStyles.body.copyWith(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                      // const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),

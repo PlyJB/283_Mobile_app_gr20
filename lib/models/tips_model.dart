@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+
 class TipsModel {
   String title;
   List<Article> articles;
@@ -42,16 +43,65 @@ class TipsModel {
           ),
           Article(
             article:
-                '"lor" เหรอ Used in the context of "really?". Frequently paired with "Jing lor" or "Chai lor" which means "really?".',
+                '"lor" เหรอ Used in the context of "really?". Frequently paired with "Jing lor" or "Chai lor" which means "really?".',
           ),
         ],
       ),
     );
     tips.add(
       TipsModel(
-        title: "Tips and Tricks",
-        articles: [Article(article: 'article test1')],
-      ),
+        title: "Thai's tones",
+        articles: [
+          Article(
+            article: '1. Thai Consonant Classes\n'
+            'Consonants are divided into three classes:\nlow, middle, and high.\n'
+            'The class of the first consonant in a syllable determines the tone of the syllable.\n'
+            'Low-Class Consonants: \nค, ฅ, ฆ, ง, ช, ซ, ฌ, ญ, ฑ, ฒ, ณ, ท, ธ, \nน, พ, ฟ, ภ, ม, ย, ร, ล, ว, ฬ, ฮ\n'
+            'Middle-Class Consonants: \nก, จ, ฎ, ฏ, ด, ต, บ, ป\n'
+            'High-Class Consonants: \nข, ฃ, ฉ, ฐ, ถ, ผ, ฝ, ศ, ษ, ส\n'
+            'Tip: Memorize only the middle- and high-class consonants. Anything else will be low-class.\n',
+            ),
+            /*1. Thai Consonant Classes  Thai consonants are divided into 3 classes, which help determine the tone of a word:  Low-Class Consonants: ค, ฅ, ฆ, ง, ช, ซ, ฌ, ญ, ฑ, ฒ, ณ, ท, ธ, น, พ, ฟ, ภ, ม, ย, ร, ล, ว, ฬ, ฮ  Middle-Class Consonants: ก, จ, ฎ, ฏ, ด, ต, บ, ป, อ  High-Class Consonants: ข, ฃ, ฉ, ฐ, ถ, ผ, ฝ, ศ, ษ, ส, ห  Tip: Memorize only the middle- and high-class consonants. Anything else will be low-class. */
+            Article(
+              article: '2. Tones When No Tone Mark is Present\n'
+              'When a word has no tone mark, \nuse these rules:\n'
+              'If the first consonant is low-class\n'
+              ' ่ (Mai Ek) = Falling tone\n'
+              ' ้ (Mai Tho) = High tone\n'
+              'If the first consonant is not low-class\n'
+              ' ่ (Mai Ek) = Low tone\n'
+              ' ้ (Mai Tho) = Falling tone\n'
+              ' ๊ (Mai Tri) = High tone (Only for middle-class consonants)\n'
+              ' ๋ (Mai Chattawa) = Rising tone (Only for middle-class consonants)\n',
+            ),
+            /*2. Tones When a Tone Mark is Present  When a word has a tone mark, use these rules:  If the first consonant is low-class  ่ (Mai Ek) = Falling tone  ้ (Mai Tho) = High tone  If the first consonant is not low-class  ่ (Mai Ek) = Low tone  ้ (Mai Tho) = Falling tone  ๊ (Mai Tri) = High tone (Only for middle-class consonants)  ๋ (Mai Chattawa) = Rising tone (Only for middle-class consonants) */
+            Article(
+              article: '3. Tones When There Is No Tone Mark\n'
+              'If there is no tone mark, follow these steps:\n'
+              'Case 1: If the syllable is a dead syllable\n'
+              'A dead syllable ends abruptly with final consonants such as ก, ด, บ \nor a short vowel (e.g., ะ).\n'
+              'If the first consonant is low-class\n'
+              '- Short vowel = High tone\n'
+              '- Long vowel = Falling tone\n'
+              'If the first consonant is middle- or high-class\n'
+              '- Low tone\n'
+              'Case 2: If the syllable is a live syllable\n'
+              'A live syllable ends in น, ณ, ญ, ร, ล, ฬ, \nม, ง, ว, ย or a long vowel.\n'
+              '- If the first consonant is high-class → Rising tone\n'
+              '- If the first consonant is not high-class → Mid tone\n',
+            ),
+          /*3. Tones When There Is No Tone Mark  If there is no tone mark, follow these steps:  Case 1: If the syllable is a dead syllable  A dead syllable ends abruptly with final consonants such as ก, ด, บ or a short vowel (e.g., ะ).  If the first consonant is low-class  Short vowel = High tone  Long vowel = Falling tone  If the first consonant is middle- or high-class  Low tone  Case 2: If the syllable is a live syllable  A live syllable ends in น, ณ, ญ, ร, ล, ฬ, ม, ง, ว, ย or a long vowel.  If the first consonant is high-class → Rising tone  If the first consonant is not high-class → Mid tone */
+          Article(
+            article:'4. Easy Tricks to Remember\n'
+            '- If there is a tone mark, apply the tone mark rules first.\n'
+            '- If there is no tone mark, check the consonant class.\n'
+            '- If the consonant is low-class and the syllable is dead, apply the dead syllable rules.\n'
+            '- If the consonant is high-class and the syllable is live, use the rising tone.\n'
+            'Practice reading and pronouncing often, and it will become natural!\n',
+            ),
+          /*4. Easy Tricks to Remember  If there is a tone mark, apply the tone mark rules first.  If there is no tone mark, check the consonant class.  If the consonant is low-class and the syllable is dead, apply the dead syllable rules.  If the consonant is high-class and the syllable is live, use the rising tone.  Practice reading and pronouncing often, and it will become natural! */
+        ],
+      )
     );
     tips.add(
       TipsModel(

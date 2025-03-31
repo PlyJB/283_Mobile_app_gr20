@@ -19,7 +19,7 @@ class CardModel {
     List<CardModel> cards = [];
     cards.add(
       CardModel(
-        thaiWord: 'สลัดดดดfffffffffffffffffffff',
+        thaiWord: 'สลัดดดด',
         pronunciation: 'sa-lad',
         engWord: 'salad',
         iconPath: 'assets/picture/salad.jpg',
