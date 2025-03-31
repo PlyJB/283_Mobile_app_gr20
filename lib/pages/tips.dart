@@ -3,7 +3,7 @@ import 'package:pic2thai/models/tips_model.dart';
 import 'package:pic2thai/pages/tipsDetails.dart';
 
 class TipsPage extends StatefulWidget {
-  const TipsPage({super.key});
+  TipsPage({super.key});
 
   @override
   State<TipsPage> createState() => _TipsPageState();
@@ -11,7 +11,7 @@ class TipsPage extends StatefulWidget {
 
 class _TipsPageState extends State<TipsPage> {
   List<TipsModel> tips = [];
-
+  String searchText = '';
   void _getTips() {
     setState(() {
       tips = TipsModel.getTips();
@@ -38,6 +38,11 @@ class _TipsPageState extends State<TipsPage> {
         ],
       ),
       child: TextField(
+        onChanged: (value) {
+          setState(() {
+            searchText = value.toLowerCase(); // กรองแบบไม่สนตัวพิมพ์เล็ก-ใหญ่
+          });
+        },
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(28),
@@ -101,6 +106,15 @@ class _TipsPageState extends State<TipsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final filteredTips =
+        tips.where((tip) {
+          final titleMatch = tip.title.toLowerCase().contains(searchText);
+          final articleMatch = tip.articles.any(
+            (article) => article.article.toLowerCase().contains(searchText),
+          );
+          return titleMatch || articleMatch;
+        }).toList();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F3FF),
       body: Column(
@@ -122,11 +136,11 @@ class _TipsPageState extends State<TipsPage> {
           _searchBox(),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView.builder(
-                itemCount: tips.length,
+                itemCount: filteredTips.length,
                 itemBuilder: (context, index) {
-                  return _buildTips(tips[index]);
+                  return _buildTips(filteredTips[index]);
                 },
               ),
             ),

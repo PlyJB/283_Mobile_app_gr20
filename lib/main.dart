@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
       case 1:
         return const CardCollectionPage();
       case 2:
-        return const TipsPage();
+        return TipsPage();
       case 3:
         return const ConversationPage();
       default:
