@@ -103,7 +103,9 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     Text(
                       card.thaiWord,
                       textAlign: TextAlign.center,
-                      style: AppTextStyles.heading.copyWith( fontWeight: FontWeight.bold),
+                      style: AppTextStyles.heading.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                       // const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
@@ -139,7 +141,87 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                         size: 22,
                         color: Color(0xFF8806D8),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext ctx) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const Divider(
+                                      thickness: 1,
+                                      height: 20,
+                                      color: Color(0xFF8806D8),
+                                    ),
+                                    const Icon(
+                                      Icons.delete,
+                                      color: Color(0xFF8806D8),
+                                      size: 50,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Text(
+                                      'Are you sure you want to delete?',
+                                      textAlign: TextAlign.center,
+                                      style: AppTextStyles.body,
+                                    ),
+                                    const SizedBox(height: 24),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        // No Button
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.grey.shade200,
+                                            foregroundColor: Color(0xFF8806D8),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          child: const Text('No'),
+                                        ),
+                                        // Yes Button
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // Do delete logic here
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(0xFF8806D8),
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          child: const Text('Yes'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),

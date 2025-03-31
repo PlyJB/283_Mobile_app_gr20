@@ -19,7 +19,7 @@ class Tipsdetails extends StatelessWidget {
         ),
         title: Text(
           tip.title,
-          style:  AppTextStyles.body.copyWith(
+          style: AppTextStyles.body.copyWith(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.purple,
@@ -38,7 +38,7 @@ class Tipsdetails extends StatelessWidget {
           itemCount: tip.articles.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 28.0),
               child: Text(
                 tip.articles[index].article,
                 style: AppTextStyles.body.copyWith(
