@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pic2thai/main.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 
@@ -118,7 +119,7 @@ class _CreatecardDetailState extends State<CreatecardDetail> {
                 onPressed: () {
                   Future.delayed(Duration(milliseconds: 100), () {
                     Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => CheckCardPic()),
+                      MaterialPageRoute(builder: (context) => MyApp()),
                       (route) => false,
                     );
                   });

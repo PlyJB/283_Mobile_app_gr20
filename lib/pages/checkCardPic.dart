@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'createCardDetail.dart';
-// import 'camera.dart';
+import 'package:pic2thai/pages/createCardDetail.dart';
+// import 'package:pic2thai/pages/camera.dart';
 
 class CheckCardPic extends StatelessWidget {
   // final String imagePath;

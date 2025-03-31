@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'pages/acheivement.dart';
-import 'pages/cardCollection.dart';
-import 'pages/conversation.dart';
-import 'pages/tips.dart';
+import 'package:pic2thai/pages/acheivement.dart';
+import 'package:pic2thai/pages/cardCollection.dart';
+import 'package:pic2thai/pages/conversation.dart';
+import 'package:pic2thai/pages/tips.dart';
 
 void main() {
   runApp(const MyApp());
