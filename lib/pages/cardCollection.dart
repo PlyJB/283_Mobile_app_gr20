@@ -4,6 +4,7 @@ import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:pic2thai/pages/acheivement.dart';
+import 'package:pic2thai/pages/editCard.dart';
 import 'package:pic2thai/main.dart';
 
 class CardCollectionPage extends StatefulWidget {
@@ -133,7 +134,19 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                         size: 22,
                         color: Color(0xFF8806D8),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder:
+                                (context) => EditCardDetail(
+                                  thai: card.thaiWord,
+                                  pronun: card.pronunciation,
+                                  eng: card.engWord,
+                                  note: card.note,
+                                ),
+                          ),
+                        );
+                      },
                     ),
                     IconButton(
                       icon: const Icon(
@@ -202,6 +215,34 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                         ElevatedButton(
                                           onPressed: () {
                                             // Do delete logic here
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Row(
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.delete,
+                                                      color: Colors.white,
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                    Text("Card deleted!"),
+                                                  ],
+                                                ),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                margin: const EdgeInsets.all(
+                                                  16,
+                                                ),
+                                                duration: const Duration(
+                                                  seconds: 2,
+                                                ),
+                                              ),
+                                            );
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Color(0xFF8806D8),

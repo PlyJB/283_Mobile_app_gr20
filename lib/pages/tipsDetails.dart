@@ -22,10 +22,10 @@ class Tipsdetails extends StatelessWidget {
           style: AppTextStyles.body.copyWith(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.purple,
+            color: const Color(0xFF8806D8),
           ),
           // const TextStyle(
-          //   color: Colors.purple,
+          //   color: const Color(0xFF8806D8),
           //   fontWeight: FontWeight.bold,
           // ),
         ),

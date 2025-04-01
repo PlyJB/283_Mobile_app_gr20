@@ -19,6 +19,7 @@ class _TipsPageState extends State<TipsPage> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
@@ -67,7 +68,7 @@ class _TipsPageState extends State<TipsPage> {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           backgroundColor: Colors.white,
-          side: BorderSide(color: Colors.purple),
+          side: BorderSide(color: const Color(0xFF8806D8)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -102,9 +103,9 @@ class _TipsPageState extends State<TipsPage> {
           style: AppTextStyles.body.copyWith(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.purple,
+            color: const Color(0xFF8806D8),
           ),
-          // const TextStyle(color: Colors.purple),
+          // const TextStyle(color: const Color(0xFF8806D8)),
         ),
       ),
     );
@@ -134,7 +135,7 @@ class _TipsPageState extends State<TipsPage> {
                 style: AppTextStyles.heading.copyWith(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.purple,
+                  color: const Color(0xFF8806D8),
                 ),
               ),
             ),
