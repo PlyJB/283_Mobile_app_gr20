@@ -85,13 +85,25 @@ class _CreatecardDetailState extends State<CreatecardDetail> {
                   print('Saved: $thai / $pronun / $eng / $note');
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Card created!")),
-                  );
-                  Future.delayed(Duration(milliseconds: 100), () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => CardCollectionPage(),
+                    SnackBar(
+                      content: Row(
+                        children: const [
+                          Icon(Icons.save, color: Colors.white),
+                          SizedBox(width: 10),
+                          Text("Card created!"),
+                        ],
                       ),
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      margin: const EdgeInsets.all(16),
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
+                  Future.delayed(Duration(milliseconds: 500), () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => MyApp()),
                       (route) => false,
                     );
                   });

@@ -54,7 +54,7 @@ class _ConversationPageState extends State<ConversationPage> {
           filled: true,
           fillColor: Colors.white,
           contentPadding: const EdgeInsets.all(15),
-          hintText: 'Search tips',
+          hintText: 'Search conversation',
           hintStyle: const TextStyle(color: Color(0xffDDDADA), fontSize: 14),
           prefixIcon: const Icon(Icons.menu, color: Color(0xFF8806D8)),
           suffixIcon: const Icon(Icons.search, color: Color(0xFF8806D8)),
