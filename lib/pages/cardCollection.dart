@@ -143,6 +143,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                   pronun: card.pronunciation,
                                   eng: card.engWord,
                                   note: card.note,
+                                  iconPath: card.iconPath,
                                 ),
                           ),
                         );

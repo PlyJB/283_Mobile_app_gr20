@@ -6,6 +6,7 @@ class EditCardDetail extends StatefulWidget {
   final String pronun;
   final String eng;
   final String note;
+  final String iconPath;
 
   const EditCardDetail({
     super.key,
@@ -13,6 +14,7 @@ class EditCardDetail extends StatefulWidget {
     required this.pronun,
     required this.eng,
     required this.note,
+    required this.iconPath,
   });
 
   @override
@@ -193,7 +195,7 @@ class _EditCardDetailState extends State<EditCardDetail> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
-                    'assets/picture/testPic.jpg',
+                    widget.iconPath,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
