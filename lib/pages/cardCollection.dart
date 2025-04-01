@@ -267,14 +267,30 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                   ],
                 ),
               ),
-              // ⭐ ปุ่ม favorite มุมบนซ้าย
               Positioned(
-                top: 8,
-                left: 8,
+                top: -16,
+                left: 1,
                 child: IconButton(
                   icon: Icon(
-                    card.isFav ? Icons.star : Icons.star_border,
-                    color: card.isFav ? Colors.amber : Colors.grey,
+                    Icons.bookmark,
+                    color: card.isFav ? Color(0xFF8806D8) : Colors.grey,
+                    size: 50,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      card.isFav = !card.isFav;
+                    });
+                  },
+                ),
+              ),
+              // ⭐ ปุ่ม favorite มุมบนซ้าย
+              Positioned(
+                top: -8,
+                left: 10,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.star,
+                    color: card.isFav ? Colors.amber : Colors.white,
                     size: 20,
                   ),
                   onPressed: () {
