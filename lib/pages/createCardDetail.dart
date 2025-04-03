@@ -71,87 +71,6 @@ class _CreatecardDetailState extends State<CreatecardDetail> {
             maxLines: 2,
           ),
           const SizedBox(height: 30),
-          Center(
-            child: SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Save or send data
-                  final thai = thaiWordController.text;
-                  final pronun = pronunController.text;
-                  final eng = engWordController.text;
-                  final note = noteController.text;
-
-                  print('Saved: $thai / $pronun / $eng / $note');
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Row(
-                        children: const [
-                          Icon(Icons.save, color: Colors.white),
-                          SizedBox(width: 10),
-                          Text("Card created!"),
-                        ],
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      margin: const EdgeInsets.all(16),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                  Future.delayed(Duration(milliseconds: 500), () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => MyApp()),
-                      (route) => false,
-                    );
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF8806D8),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 14,
-                  ),
-                ),
-                child: const Text("Create"),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Center(
-            child: SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                onPressed: () {
-                  Future.delayed(Duration(milliseconds: 100), () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => MyApp()),
-                      (route) => false,
-                    );
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Color(0xFF8806D8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 14,
-                  ),
-                ),
-                child: const Text("Cancel"),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
         ],
       ),
     );
@@ -159,49 +78,45 @@ class _CreatecardDetailState extends State<CreatecardDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F3FF),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 40),
-              const Text(
-                "Create Card Detail",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF8806D8),
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Create Card Detail",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF8806D8),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.center,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  20,
+                ), // ปรับขนาดมุมมนตามต้องการ
+                child: Image.asset(
+                  'assets/picture/testPic.jpg',
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    20,
-                  ), // ปรับขนาดมุมมนตามต้องการ
-                  child: Image.asset(
-                    'assets/picture/testPic.jpg',
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Divider(
-                color: Colors.grey, // สีเส้น
-                thickness: 1, // ความหนา
-                indent: 16, // ระยะห่างจากด้านซ้าย
-                endIndent: 16, // ระยะห่างจากด้านขวา
-              ),
-              InputSection(),
-            ],
-          ),
+            ),
+            SizedBox(height: 10),
+            Divider(
+              color: Colors.grey, // สีเส้น
+              thickness: 1, // ความหนา
+              indent: 16, // ระยะห่างจากด้านซ้าย
+              endIndent: 16, // ระยะห่างจากด้านขวา
+            ),
+            InputSection(),
+          ],
         ),
       ),
     );

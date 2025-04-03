@@ -4,6 +4,7 @@ import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:pic2thai/pages/acheivement.dart';
+import 'package:pic2thai/pages/createCard.dart';
 import 'package:pic2thai/pages/editCard.dart';
 import 'package:pic2thai/main.dart';
 
@@ -342,8 +343,9 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
         onPressed: () {
           Navigator.of(context).push(
             PageRouteBuilder(
+              transitionDuration: Duration(milliseconds: 300),
               pageBuilder:
-                  (context, animation, secondaryAnimation) => CheckCardPic(),
+                  (context, animation, secondaryAnimation) => Createcard(),
               transitionsBuilder: (
                 context,
                 animation,
