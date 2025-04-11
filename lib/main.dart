@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:path/path.dart' as p;
+import 'package:sqflite/sqflite.dart';
 import 'package:pic2thai/pages/acheivement.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/conversation.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           headlineLarge: AppTextStyles.heading,
           bodyLarge: AppTextStyles.body,
-    ),
+        ),
       ),
       home: const MainScreen(), // Use MainScreen instead of HomePage
     );
@@ -35,10 +37,7 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle body = TextStyle(
-    fontFamily: 'Itim',
-    fontSize: 16,
-  );
+  static const TextStyle body = TextStyle(fontFamily: 'Itim', fontSize: 16);
 }
 
 class MainScreen extends StatefulWidget {
@@ -51,11 +50,35 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late int _selectedIndex;
+  Database? _db;
 
   @override
   void initState() {
     super.initState();
+    _initDatabase();
     _selectedIndex = widget.selectedIndex;
+  }
+
+  Future<void> _initDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = p.join(dbPath, 'cards_map.db');
+    _db = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) async {
+        await db.execute('''
+            CREATE TABLE cards (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            Thai TEXT NOT NULL,
+            Pronounce TEXT NOT NULL,
+            English TEXT NOT NULL,
+            Note TEXT,
+            Icon TEXT NOT NULL,
+            isFav INTEGER NOT NULL DEFAULT 0
+            )
+          ''');
+      },
+    );
   }
 
   final List<String> _titles = [
@@ -76,13 +99,13 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return const AchievementPage();
       case 1:
-        return const CardCollectionPage();
+        return CardCollectionPage(database: _db!);
       case 2:
         return TipsPage();
       case 3:
         return const ConversationPage();
       default:
-        return const CardCollectionPage();
+        return CardCollectionPage(database: _db!);
     }
   }
 

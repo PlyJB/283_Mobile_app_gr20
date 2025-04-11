@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:pic2thai/pages/createCardDetail.dart';
+import 'package:sqflite/sqflite.dart';
+
 
 class Createcard extends StatefulWidget {
-  const Createcard({super.key});
+  final Database database;
+  const Createcard({super.key, required this.database});
 
   @override
   State<Createcard> createState() => _CreatecardState();
@@ -25,7 +28,7 @@ class _CreatecardState extends State<Createcard> {
       title: const Text('Create Detail'),
       isActive: _currentStep >= 1,
       state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      content: CreatecardDetail(),
+      content: CreatecardDetail(database: widget.database),
     ),
   ];
 

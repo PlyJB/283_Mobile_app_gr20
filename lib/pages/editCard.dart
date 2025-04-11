@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
+import 'package:sqflite/sqflite.dart';
 
 class EditCardDetail extends StatefulWidget {
+  final int? id;
   final String thai;
   final String pronun;
   final String eng;
   final String note;
   final String iconPath;
+  final Database database;
 
   const EditCardDetail({
     super.key,
+    required this.id,
     required this.thai,
     required this.pronun,
     required this.eng,
     required this.note,
     required this.iconPath,
+    required this.database,
+
   });
 
   @override
@@ -34,6 +40,49 @@ class _EditCardDetailState extends State<EditCardDetail> {
     pronunController = TextEditingController(text: widget.pronun);
     engWordController = TextEditingController(text: widget.eng);
     noteController = TextEditingController(text: widget.note);
+  }
+
+  Future<void> _saveEdit() async {
+    final thai = thaiWordController.text.trim();
+    final pronun = pronunController.text.trim();
+    final eng = engWordController.text.trim();
+    final note = noteController.text.trim();
+
+    await widget.database.update(
+      'cards',
+      {
+        'thai': thai,
+        'pronunciation': pronun,
+        'english': eng,
+        'note': note,
+      },
+      where: 'id = ?',
+      whereArgs: [widget.id],
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: const [
+            Icon(Icons.edit, color: Colors.white),
+            SizedBox(width: 10),
+            Text("Changes saved!"),
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+
+    await Future.delayed(const Duration(milliseconds: 500));
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const MyApp()),
+      (route) => false,
+    );
   }
 
   Widget InputSection() {
@@ -93,6 +142,7 @@ class _EditCardDetailState extends State<EditCardDetail> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
+                  _saveEdit();
                   final thai = thaiWordController.text;
                   final pronun = pronunController.text;
                   final eng = engWordController.text;

@@ -7,9 +7,11 @@ import 'package:pic2thai/pages/acheivement.dart';
 import 'package:pic2thai/pages/createCard.dart';
 import 'package:pic2thai/pages/editCard.dart';
 import 'package:pic2thai/main.dart';
+import 'package:sqflite/sqflite.dart';
 
 class CardCollectionPage extends StatefulWidget {
-  const CardCollectionPage({super.key});
+  final Database database;
+  const CardCollectionPage({super.key, required this.database});
 
   @override
   State<CardCollectionPage> createState() => _CardCollectionPageState();
@@ -18,9 +20,26 @@ class CardCollectionPage extends StatefulWidget {
 class _CardCollectionPageState extends State<CardCollectionPage> {
   List<CardModel> cards = [];
 
-  void _getCards() {
+  Future<void> _getCards() async {
+    final List<Map<String, dynamic>> data = await widget.database.query(
+      'cards',
+    );
+    final List<CardModel> loadedCards = [];
+    for (var map in data) {
+      loadedCards.add(
+        CardModel(
+          id: map['id'],
+          thaiWord: map['Thai'],
+          pronunciation: map['Pronounce'],
+          engWord: map['English'],
+          note: map['Note'],
+          iconPath: map['Icon'],
+          isFav: map['isFav'] == 1,
+        ),
+      );
+    }
     setState(() {
-      cards = CardModel.getCards();
+      cards = loadedCards;
     });
   }
 
@@ -31,6 +50,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       _getCards();
     });
   }
+
+  String searchQuery = '';
 
   Widget _searchBox() {
     return Container(
@@ -45,6 +66,11 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
         ],
       ),
       child: TextField(
+        onChanged: (value) {
+          setState(() {
+            searchQuery = value.toLowerCase();
+          });
+        },
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(28),
@@ -59,6 +85,49 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
           suffixIcon: const Icon(Icons.search, color: Color(0xFF8806D8)),
         ),
       ),
+    );
+  }
+
+  // Widget _searchBox() {
+  //   return Container(
+  //     margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
+  //     decoration: BoxDecoration(
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: const Color(0xff1D1617).withOpacity(0.01),
+  //           blurRadius: 10,
+  //           spreadRadius: 0.0,
+  //         ),
+  //       ],
+  //     ),
+  //     child: TextField(
+  //       decoration: InputDecoration(
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(28),
+  //           borderSide: BorderSide.none,
+  //         ),
+  //         filled: true,
+  //         fillColor: Colors.white,
+  //         contentPadding: const EdgeInsets.all(15),
+  //         hintText: 'Search card',
+  //         hintStyle: const TextStyle(color: Color(0xffDDDADA), fontSize: 14),
+  //         prefixIcon: const Icon(Icons.menu, color: Color(0xFF8806D8)),
+  //         suffixIcon: const Icon(Icons.search, color: Color(0xFF8806D8)),
+  //       ),
+  //     ),
+  //   );
+  // }
+  /// update card to favorite
+  void _toggleFavorite(CardModel card) async {
+    setState(() {
+      card.isFav = !card.isFav;
+    });
+
+    await widget.database.update(
+      'cards',
+      {'isFav': card.isFav ? 1 : 0},
+      where: 'id = ?',
+      whereArgs: [card.id],
     );
   }
 
@@ -140,11 +209,13 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                           MaterialPageRoute(
                             builder:
                                 (context) => EditCardDetail(
+                                  id: card.id,
                                   thai: card.thaiWord,
                                   pronun: card.pronunciation,
                                   eng: card.engWord,
                                   note: card.note,
                                   iconPath: card.iconPath,
+                                  database: widget.database,
                                 ),
                           ),
                         );
@@ -215,7 +286,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                         ),
                                         // Yes Button
                                         ElevatedButton(
-                                          onPressed: () {
+                                          onPressed: () async {
                                             // Do delete logic here
                                             ScaffoldMessenger.of(
                                               context,
@@ -245,6 +316,12 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                                 ),
                                               ),
                                             );
+                                            await widget.database.delete(
+                                              'cards',
+                                              where: 'id = ?',
+                                              whereArgs: [card.id],
+                                            );
+                                            await _getCards(); // อัปเดตรายการหลังลบ
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Color(0xFF8806D8),
@@ -278,11 +355,12 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     color: card.isFav ? Color(0xFF8806D8) : Colors.grey,
                     size: 50,
                   ),
-                  onPressed: () {
-                    setState(() {
-                      card.isFav = !card.isFav;
-                    });
-                  },
+                  // onPressed: () {
+                  //   setState(() {
+                  //     card.isFav = !card.isFav;
+                  //   });
+                  // },
+                  onPressed: () => _toggleFavorite(card),
                 ),
               ),
               // ⭐ ปุ่ม favorite มุมบนซ้าย
@@ -295,11 +373,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     color: card.isFav ? Colors.amber : Colors.white,
                     size: 20,
                   ),
-                  onPressed: () {
-                    setState(() {
-                      card.isFav = !card.isFav;
-                    });
-                  },
+                  onPressed: () => _toggleFavorite(card),
                 ),
               ),
             ],
@@ -310,10 +384,19 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
   }
 
   Widget _buildCardList() {
+    final filteredCards = cards.where((card) {
+    final thai = card.thaiWord.toLowerCase();
+    final eng = card.engWord.toLowerCase();
+    final pronun = card.pronunciation.toLowerCase();
+    return thai.contains(searchQuery) ||
+        eng.contains(searchQuery) ||
+        pronun.contains(searchQuery);
+  }).toList();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GridView.builder(
-        itemCount: cards.length,
+        itemCount: filteredCards.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 16,
@@ -321,8 +404,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
           childAspectRatio: 0.65,
         ),
         itemBuilder: (context, index) {
-          final card = cards[index];
-          return _buildCard(card);
+        final card = filteredCards[index];
+        return _buildCard(card);
         },
       ),
     );
@@ -345,7 +428,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
             PageRouteBuilder(
               transitionDuration: Duration(milliseconds: 300),
               pageBuilder:
-                  (context, animation, secondaryAnimation) => Createcard(),
+                  (context, animation, secondaryAnimation) => Createcard(database: widget.database),
               transitionsBuilder: (
                 context,
                 animation,

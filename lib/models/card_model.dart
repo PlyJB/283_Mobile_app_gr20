@@ -1,4 +1,5 @@
 class CardModel {
+  final int? id;
   String thaiWord;
   String pronunciation;
   String engWord;
@@ -7,6 +8,7 @@ class CardModel {
   bool isFav;
 
   CardModel({
+    this.id,
     required this.thaiWord,
     required this.pronunciation,
     required this.engWord,
@@ -14,58 +16,10 @@ class CardModel {
     this.note = "",
     this.isFav = false,
   });
-
-  static List<CardModel> getCards() {
-    List<CardModel> cards = [];
-    cards.add(
-      CardModel(
-        thaiWord: 'สลัดดดด',
-        pronunciation: 'sa-lad',
-        engWord: 'salad',
-        iconPath: 'assets/picture/salad.jpg',
-      ),
-    );
-    cards.add(
-      CardModel(
-        thaiWord: 'เค้ก',
-        pronunciation: 'cake',
-        engWord: 'Cake',
-        iconPath: 'assets/picture/cake.jpg',
-      ),
-    );
-    cards.add(
-      CardModel(
-        thaiWord: 'พาย',
-        pronunciation: 'pie',
-        engWord: 'Pie',
-        iconPath: 'assets/picture/pie.jpg',
-      ),
-    );
-    cards.add(
-      CardModel(
-        thaiWord: 'สลัด',
-        pronunciation: 'sa-lad',
-        engWord: 'salad',
-        iconPath: 'assets/picture/salad.jpg',
-      ),
-    );
-    cards.add(
-      CardModel(
-        thaiWord: 'เค้ก',
-        pronunciation: 'cake',
-        engWord: 'Cake',
-        iconPath: 'assets/picture/cake.jpg',
-      ),
-    );
-    cards.add(
-      CardModel(
-        thaiWord: 'พาย',
-        pronunciation: 'pie',
-        engWord: 'Pie',
-        iconPath: 'assets/picture/pie.jpg',
-      ),
-    );
-
-    return cards;
+  Map<String, dynamic> toMap() {
+    return {'id': id, 'Thai': thaiWord, 'Pronounce': pronunciation, 'English': engWord, 'Note': note, 'Icon': iconPath, 'isFav': isFav};  
   }
+
+  @override
+  String toString() => 'Cards(id: $id, Thai: $thaiWord, Pronounce: $pronunciation, English: $engWord, Note: $note, Icon: $iconPath, isFav: $isFav)';
 }

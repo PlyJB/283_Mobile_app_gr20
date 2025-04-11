@@ -160,68 +160,6 @@ class CheckCardPic extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          // SizedBox(
-          //   width: 300,
-          //   child: ElevatedButton(
-          //     onPressed: () {
-          //       // ไปต่อ (สร้างคำศัพท์หรือหน้าถัดไป)
-          //       Navigator.of(context).push(
-          //         PageRouteBuilder(
-          //           pageBuilder:
-          //               (context, animation, secondaryAnimation) =>
-          //                   CreatecardDetail(),
-          //           transitionsBuilder: (
-          //             context,
-          //             animation,
-          //             secondaryAnimation,
-          //             child,
-          //           ) {
-          //             return SlideTransition(
-          //               position: Tween<Offset>(
-          //                 begin: Offset(1, 0),
-          //                 end: Offset(0, 0),
-          //               ).animate(animation),
-          //               child: child,
-          //             );
-          //           },
-          //         ),
-          //       );
-          //     },
-          //     style: ElevatedButton.styleFrom(
-          //       backgroundColor: Color(0xFF8806D8), // สีพื้นหลัง
-          //       foregroundColor: Colors.white, // สีตัวอักษรหรือไอคอน
-          //       padding: EdgeInsets.symmetric(
-          //         horizontal: 24,
-          //         vertical: 12,
-          //       ), // ขนาดปุ่ม
-          //       shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(40), // มุมมน
-          //       ),
-          //     ),
-          //     child: Text("Yes"),
-          //   ),
-          // ),
-          // const SizedBox(height: 10),
-          // SizedBox(
-          //   width: 300,
-          //   child: ElevatedButton(
-          //     onPressed: () {
-          //       // ไปต่อ (สร้างคำศัพท์หรือหน้าถัดไป)
-          //     },
-          //     style: ElevatedButton.styleFrom(
-          //       backgroundColor: Colors.white, // สีพื้นหลัง
-          //       foregroundColor: Color(0xFF8806D8), // สีตัวอักษรหรือไอคอน
-          //       padding: EdgeInsets.symmetric(
-          //         horizontal: 24,
-          //         vertical: 12,
-          //       ), // ขนาดปุ่ม
-          //       shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(40), // มุมมน
-          //       ),
-          //     ),
-          //     child: Text("Retake the photo"),
-          //   ),
-          // ),
         ],
       ),
     );
