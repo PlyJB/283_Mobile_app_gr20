@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pic2thai/models/acheivement_model.dart'; // ตรวจสอบให้แน่ใจว่า import ไฟล์นี้
+import 'package:sqflite/sqflite.dart';
 
 class AchievementPage extends StatefulWidget {
-  final int collectedCards;
+  final Database database;
   final int learnedConversations;
 
-  AchievementPage({required this.collectedCards, required this.learnedConversations});
+  AchievementPage({required this.database, required this.learnedConversations});
 
   @override
   _AchievementPageState createState() => _AchievementPageState();
@@ -14,22 +15,33 @@ class AchievementPage extends StatefulWidget {
 
 class _AchievementPageState extends State<AchievementPage> {
   List<AchievementModel> achievements = AchievementModel.getAchievements();
+  int collectedCards = 0; // จำนวนการ์ดที่เก็บรวบรวม
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
+    loadCollectedCards();
+  }
+
+  Future<void> loadCollectedCards() async {
+    final List<Map<String, dynamic>> cards = await widget.database.query('cards');
+    collectedCards = cards.length;
+
     checkAndUnlockAchievements();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void checkAndUnlockAchievements() {
-    setState(() {
-      for (var achievement in achievements) {
-        if (!achievement.isReceived && achievement.condition(widget.collectedCards, widget.learnedConversations)) {
-          achievement.isReceived = true;
-          achievement.receivedDate = DateTime.now();
-        }
+    for (var achievement in achievements) {
+      if (!achievement.isReceived &&
+          achievement.condition(collectedCards, widget.learnedConversations)) {
+        achievement.isReceived = true;
+        achievement.receivedDate = DateTime.now();
       }
-    });
+    }
   }
 
   @override

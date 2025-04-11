@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
     _selectedIndex = widget.selectedIndex;
   }
 
-  Future<void> _initDatabase() async {
+  Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
     final path = p.join(dbPath, 'cards_map.db');
     _db = await openDatabase(
@@ -79,6 +79,7 @@ class _MainScreenState extends State<MainScreen> {
           ''');
       },
     );
+    return _db!;
   }
 
   final List<String> _titles = [
@@ -94,18 +95,18 @@ class _MainScreenState extends State<MainScreen> {
     ).pushReplacement(_fadeRoute(MainScreen(selectedIndex: index)));
   }
 
-  Widget _getBody(int index) {
+  Widget _getBody(int index, Database db) {
     switch (index) {
       case 0:
-        return const AchievementPage();
+        return AchievementPage(database: db, learnedConversations: 0);
       case 1:
-        return CardCollectionPage(database: _db!);
+        return CardCollectionPage(database: db);
       case 2:
         return TipsPage();
       case 3:
         return const ConversationPage();
       default:
-        return CardCollectionPage(database: _db!);
+        return CardCollectionPage(database: db);
     }
   }
 
@@ -191,10 +192,31 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FutureBuilder<Database>(
+    future: _initDatabase(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState != ConnectionState.done) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      if (snapshot.hasError) {
+        return Scaffold(
+          body: Center(child: Text("เกิดข้อผิดพลาด: ${snapshot.error}")),
+        );
+      }
+
+      final db = snapshot.data!;
+      return _buildMainUI(db);
+    },
+  );
+  }
+  Widget _buildMainUI(Database db) {
+  return Scaffold(
       body: Stack(
         children: [
-          _getBody(_selectedIndex),
+          _getBody(_selectedIndex, db),
           Positioned(
             bottom: 0,
             left: 0,
