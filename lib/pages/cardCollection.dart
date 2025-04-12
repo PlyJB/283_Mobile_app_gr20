@@ -10,8 +10,9 @@ import 'package:pic2thai/main.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CardCollectionPage extends StatefulWidget {
+  final String imagePath;
   final Database database;
-  const CardCollectionPage({super.key, required this.database});
+  const CardCollectionPage({super.key, required this.database, required this.imagePath});
 
   @override
   State<CardCollectionPage> createState() => _CardCollectionPageState();
@@ -428,7 +429,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
             PageRouteBuilder(
               transitionDuration: Duration(milliseconds: 300),
               pageBuilder:
-                  (context, animation, secondaryAnimation) => Createcard(database: widget.database),
+                  (context, animation, secondaryAnimation) => CameraPage(database: widget.database),
               transitionsBuilder: (
                 context,
                 animation,

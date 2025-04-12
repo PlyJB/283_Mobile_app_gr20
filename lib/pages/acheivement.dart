@@ -49,11 +49,10 @@ class _AchievementPageState extends State<AchievementPage> {
     List<AchievementModel> receivedAchievements = achievements.where((achievement) => achievement.isReceived).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text('🏆 Achievements')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: receivedAchievements.isEmpty
-            ? Center(child: Text('ยังไม่มี Achievements ที่ได้รับ 😢'))
+            ? Center(child: Text('No achievements received.'))
             : ListView.builder(
                 itemCount: receivedAchievements.length,
                 itemBuilder: (context, index) {

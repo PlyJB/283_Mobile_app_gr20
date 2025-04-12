@@ -3,11 +3,13 @@ import 'package:pic2thai/main.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:pic2thai/pages/createCardDetail.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:pic2thai/pages/camera.dart';
 
 
 class Createcard extends StatefulWidget {
+  final String imagePath;
   final Database database;
-  const Createcard({super.key, required this.database});
+  const Createcard({super.key, required this.database, required this.imagePath});
 
   @override
   State<Createcard> createState() => _CreatecardState();
@@ -22,13 +24,13 @@ class _CreatecardState extends State<Createcard> {
       title: const Text('Verfiy Photo'),
       isActive: _currentStep >= 0,
       state: _currentStep <= 0 ? StepState.editing : StepState.complete,
-      content: CheckCardPic(),
+      content: CheckCardPic(imagePath: widget.imagePath),
     ),
     Step(
       title: const Text('Create Detail'),
       isActive: _currentStep >= 1,
       state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      content: CreatecardDetail(database: widget.database),
+      content: CreatecardDetail(database: widget.database, imagePath: widget.imagePath),
     ),
   ];
 

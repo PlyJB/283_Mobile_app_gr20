@@ -6,6 +6,8 @@ import 'package:pic2thai/pages/acheivement.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/conversation.dart';
 import 'package:pic2thai/pages/tips.dart';
+import 'package:pic2thai/pages/checkCardPic.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +44,8 @@ class AppTextStyles {
 
 class MainScreen extends StatefulWidget {
   final int selectedIndex;
-  const MainScreen({super.key, this.selectedIndex = 1});
+  final  String imagePath;
+  const MainScreen({super.key, this.selectedIndex = 1, this.imagePath = ''});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -51,6 +54,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late int _selectedIndex;
   Database? _db;
+
 
   @override
   void initState() {
@@ -100,13 +104,13 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return AchievementPage(database: db, learnedConversations: 0);
       case 1:
-        return CardCollectionPage(database: db);
+        return CardCollectionPage(database: db, imagePath: widget.imagePath,);
       case 2:
         return TipsPage();
       case 3:
         return const ConversationPage();
       default:
-        return CardCollectionPage(database: db);
+        return CardCollectionPage(database: db, imagePath: widget.imagePath,);
     }
   }
 

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:pic2thai/main.dart';
-import 'package:pic2thai/pages/cardCollection.dart';
-import 'package:pic2thai/pages/checkCardPic.dart';
-import 'package:sqflite/sqflite.dart';
+// import 'package:flutter/material.dart';
+// import 'package:pic2thai/main.dart';
+// import 'package:pic2thai/pages/cardCollection.dart';
+// import 'package:pic2thai/pages/checkCardPic.dart';
+// import 'package:sqflite/sqflite.dart';
 
 // class CreatecardDetail extends StatefulWidget {
 //   const CreatecardDetail({super.key});
@@ -127,11 +127,13 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
+import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CreatecardDetail extends StatefulWidget {
+  final String imagePath;
   final Database database;
-  const CreatecardDetail({super.key, required this.database});
+  const CreatecardDetail({super.key, required this.database, required this.imagePath});
 
   @override
   State<CreatecardDetail> createState() => _CreatecardDetailState();
@@ -159,7 +161,7 @@ class _CreatecardDetailState extends State<CreatecardDetail> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => CardCollectionPage(database: widget.database),
+        builder: (context) => CardCollectionPage(database: widget.database, imagePath: widget.imagePath,),
       ),
     );
   }

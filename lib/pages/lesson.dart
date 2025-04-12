@@ -72,9 +72,10 @@ class _LessonState extends State<Lesson> {
                       Expanded(
                         child: Text(
                           article.thai,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                          style: AppTextStyles.body.copyWith(
+                            fontSize: 22,
+                            height: 1.5,
+                            color: Colors.black87,
                           ),
                         ),
                       ),

@@ -115,17 +115,18 @@
 //   }
 // }
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pic2thai/pages/createCardDetail.dart';
-// import 'package:pic2thai/pages/camera.dart';
+import 'package:pic2thai/pages/camera.dart';
 
 class CheckCardPic extends StatelessWidget {
-  // final String imagePath;
+  final String imagePath;
 
   const CheckCardPic({
     super.key,
     // this.imagePath = 'assets/picture/testPic.jpg',
-    // required this.imagePath,
+    required this.imagePath,
   });
 
   @override
@@ -148,15 +149,19 @@ class CheckCardPic extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(
-                20,
-              ), // ปรับขนาดมุมมนตามต้องการ
-              child: Image.asset(
-                'assets/picture/testPic.jpg',
+              borderRadius: BorderRadius.circular(20), // ปรับขนาดมุมมนตามต้องการ
+              child: Image.file(
+                File(imagePath), // ใช้ภาพจาก path ที่ส่งมา
                 width: 300,
                 height: 300,
                 fit: BoxFit.cover,
               ),
+              // child: Image.asset(
+              //   'assets/picture/testPic.jpg',
+              //   width: 300,
+              //   height: 300,
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
           const SizedBox(height: 20),
