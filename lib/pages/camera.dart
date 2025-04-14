@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:pic2thai/pages/createCard.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:permission_handler/permission_handler.dart'; // เพิ่ม import
+import 'package:pic2thai/pages/createCardDetail.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 class CameraPage extends StatefulWidget {
   final Database database;
@@ -19,38 +22,29 @@ class _CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     super.initState();
-    _requestPermissions(); // เรียกฟังก์ชันขออนุญาต
+    _requestPermissions();
   }
 
-  // ฟังก์ชันขออนุญาต
   Future<void> _requestPermissions() async {
-    // ตรวจสอบการอนุญาต
     PermissionStatus status = await Permission.camera.request();
-
-    // ถ้าอนุญาตให้ใช้กล้อง
     if (status.isGranted) {
-      _setupCamera(); // เรียกฟังก์ชันตั้งค่ากล้อง
+      _setupCamera();
     } else {
-      // แจ้งเตือนหรือจัดการกรณีไม่อนุญาต
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("ต้องการอนุญาตให้ใช้กล้อง")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("ต้องการอนุญาตให้ใช้กล้อง")),
+      );
     }
   }
 
   Future<void> _setupCamera() async {
-    List<CameraDescription> _cameras = await availableCameras();
-    if (_cameras.isNotEmpty) {
-      setState(() {
-        cameras = _cameras;
-        cameraController = CameraController(
-          cameras.first,
-          ResolutionPreset.medium,
-        );
-      });
-      await cameraController?.initialize().then((_) {
-        setState(() {});
-      });
+    cameras = await availableCameras();
+    if (cameras.isNotEmpty) {
+      cameraController = CameraController(
+        cameras.first,
+        ResolutionPreset.medium,
+      );
+      await cameraController?.initialize();
+      setState(() {});
     }
   }
 
@@ -61,26 +55,22 @@ class _CameraPageState extends State<CameraPage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.black, // Set the background to black
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        // title: const Text('กล้อง'),
-        backgroundColor: Colors.black, // AppBar background is black
-        elevation: 0, // Remove shadow for flat look
+        backgroundColor: Colors.black,
+        elevation: 0,
       ),
       body: Column(
         children: [
-          // Full-screen camera preview
           Expanded(child: CameraPreview(cameraController!)),
-
-          // Camera capture button at the bottom
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: _takePicture,
               style: ElevatedButton.styleFrom(
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(20),
-                backgroundColor: Colors.white, // Button color
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(20),
+                backgroundColor: Colors.white,
               ),
               child: const Icon(
                 Icons.camera_alt,
@@ -99,22 +89,28 @@ class _CameraPageState extends State<CameraPage> {
 
     try {
       final image = await cameraController!.takePicture();
+
+      final directory = await getApplicationDocumentsDirectory();
+      final filename = 'pic2thai_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final savedImagePath = p.join(directory.path, filename);
+
+      // คัดลอกภาพไปเก็บถาวร
+      await File(image.path).copy(savedImagePath);
+
       if (!mounted) return;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Picture taken successfully')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('ถ่ายรูปสำเร็จ')),
+      );
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder:
-              (context) => Createcard(
-                database: widget.database,
-                imagePath: image.path, // ส่ง path ไปตรงนี้
-              ),
+          builder: (context) => CreatecardDetail(
+            database: widget.database,
+            imagePath: savedImagePath,
+          ),
         ),
       );
-      debugPrint(image.path);
     } catch (e) {
       debugPrint("ถ่ายรูปผิดพลาด: $e");
     }

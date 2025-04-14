@@ -1,10 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:pic2thai/pages/acheivement.dart';
-import 'package:pic2thai/pages/createCard.dart';
 import 'package:pic2thai/pages/editCard.dart';
 import 'package:pic2thai/main.dart';
 import 'package:sqflite/sqflite.dart';
@@ -132,8 +132,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     borderRadius: BorderRadius.circular(
                       12,
                     ), // ปรับค่าความมนตามต้องการ
-                    child: Image.asset(
-                      card.iconPath,
+                    child: Image.file(
+                      File(card.iconPath),
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -270,6 +270,11 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                         //Delete card
                                         ElevatedButton(
                                           onPressed: () async {
+                                            await widget.database.delete(
+                                              'cards',
+                                              where: 'id = ?',
+                                              whereArgs: [card.id],
+                                            );
                                             // Do delete logic here
                                             ScaffoldMessenger.of(
                                               context,
@@ -299,11 +304,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                                 ),
                                               ),
                                             );
-                                            await widget.database.delete(
-                                              'cards',
-                                              where: 'id = ?',
-                                              whereArgs: [card.id],
-                                            );
+                                            
                                             await _getCards(); // อัปเดตรายการหลังลบ
                                           },
                                           style: ElevatedButton.styleFrom(

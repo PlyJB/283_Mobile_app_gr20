@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
+import 'package:pic2thai/models/card_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class EditCardDetail extends StatefulWidget {
@@ -46,10 +47,13 @@ class _EditCardDetailState extends State<EditCardDetail> {
     final pronun = pronunController.text.trim();
     final eng = engWordController.text.trim();
     final note = noteController.text.trim();
+    final card = CardModel(id: widget.id, thaiWord: thai, pronunciation: pronun, engWord: eng, note: note, iconPath: widget.iconPath);
+
 
     await widget.database.update(
       'cards',
-      {'thai': thai, 'pronunciation': pronun, 'english': eng, 'note': note},
+      // {'thai': thai, 'pronunciation': pronun, 'english': eng, 'note': note},
+      card.toMap(),
       where: 'id = ?',
       whereArgs: [widget.id],
     );
@@ -137,21 +141,21 @@ class _EditCardDetailState extends State<EditCardDetail> {
               // Update card detail
               child: ElevatedButton(
                 onPressed: () {
-                  _saveEdit();
+                  final id = widget.id;
                   final thai = thaiWordController.text;
                   final pronun = pronunController.text;
                   final eng = engWordController.text;
                   final note = noteController.text;
 
-                  print('Edited: $thai / $pronun / $eng / $note');
-
+                  print('Edited: $id /$thai / $pronun / $eng / $note');
+                  _saveEdit();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Row(
-                        children: const [
+                        children: [
                           Icon(Icons.edit, color: Colors.white),
                           SizedBox(width: 10),
-                          Text("Changes saved!"),
+                          Text("Changes saved!, Edited: $id /$thai / $pronun / $eng / $note"),
                         ],
                       ),
                       behavior: SnackBarBehavior.floating,
