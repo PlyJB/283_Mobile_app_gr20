@@ -4,6 +4,7 @@ import 'package:pic2thai/main.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:pic2thai/models/card_model.dart';
 
 class CreatecardDetail extends StatefulWidget {
   final String imagePath;
@@ -25,13 +26,40 @@ class _CreatecardDetailState extends State<CreatecardDetail> {
   final noteController = TextEditingController();
 
   Future<void> insertCard() async {
-    await widget.database.insert('cards', {
-      'thai': thaiWordController.text,
-      'pronun': pronunController.text,
-      'english': engWordController.text,
-      'note': noteController.text,
-      'imagePath': widget.imagePath,
-    }, conflictAlgorithm: ConflictAlgorithm.replace);
+    final thai = thaiWordController.text;
+    final pronun = pronunController.text;
+    final english = engWordController.text;
+    final note = noteController.text;
+    final imagePath = widget.imagePath;
+
+    if (thai.isNotEmpty &&
+        pronun.isNotEmpty &&
+        english.isNotEmpty) {
+      final card =CardModel(
+          thaiWord: thai,
+          pronunciation: pronun,
+          engWord: english,
+          note: note,
+          iconPath: imagePath,
+        );
+      await widget.database.insert(
+        'cards',
+        card.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+    // await widget.database.insert('cards', {
+    //   'thai': thaiWordController.text,
+    //   'pronun': pronunController.text,
+    //   'english': engWordController.text,
+    //   'note': noteController.text,
+    //   'imagePath': widget.imagePath,
+    // }, conflictAlgorithm: ConflictAlgorithm.replace);
 
     ScaffoldMessenger.of(
       context,

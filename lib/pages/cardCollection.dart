@@ -21,6 +21,15 @@ class CardCollectionPage extends StatefulWidget {
 class _CardCollectionPageState extends State<CardCollectionPage> {
   List<CardModel> cards = [];
 
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      _getCards();
+    });
+  }
+
+
   Future<void> _getCards() async {
     final List<Map<String, dynamic>> data = await widget.database.query(
       'cards',
@@ -44,13 +53,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      _getCards();
-    });
-  }
 
   String searchQuery = '';
 
