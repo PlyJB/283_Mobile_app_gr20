@@ -108,7 +108,6 @@ class _ConversationPageState extends State<ConversationPage> {
             fontWeight: FontWeight.bold,
             color: const Color(0xFF8806D8),
           ),
-          // const TextStyle(color: const Color(0xFF8806D8)),
         ),
       ),
     );

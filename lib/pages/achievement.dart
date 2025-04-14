@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pic2thai/models/achievement_model.dart'; // ตรวจสอบให้แน่ใจว่า import ไฟล์นี้
+import 'package:pic2thai/models/achievement_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AchievementPage extends StatefulWidget {
@@ -59,42 +59,6 @@ class _AchievementPageState extends State<AchievementPage> {
     }
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   List<AchievementModel> receivedAchievements = achievements.where((achievement) => achievement.isReceived).toList();
-
-  //   return Scaffold(
-  //     backgroundColor: const Color(0xFFF5F3FF),
-  //     body: Padding(
-  //       padding: const EdgeInsets.all(16.0),
-  //       child: receivedAchievements.isEmpty
-  //           ? Center(child: Text('No achievements received.'))
-  //           : ListView.builder(
-  //               itemCount: receivedAchievements.length,
-  //               itemBuilder: (context, index) {
-  //                 final achievement = receivedAchievements[index];
-  //                 return Padding(
-  //                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //                   child: ListTile(
-  //                     leading: Image.asset(achievement.iconPath, width: 50),
-  //                     title: Text(
-  //                       achievement.name,
-  //                       style: TextStyle(fontWeight: FontWeight.bold),
-  //                     ),
-  //                     subtitle: Text(
-  //                       ' ${achievement.receivedDate != null ? DateFormat('dd MMM yyyy').format(achievement.receivedDate!) : '--, --,----'}',
-  //                     ),
-  //                     tileColor: Colors.grey[200],
-  //                     shape: RoundedRectangleBorder(
-  //                       borderRadius: BorderRadius.circular(12),
-  //                     ),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //     ),
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     // กรองเฉพาะที่ได้แล้ว

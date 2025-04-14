@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-
 class TipsModel {
   String title;
   List<Article> articles;
