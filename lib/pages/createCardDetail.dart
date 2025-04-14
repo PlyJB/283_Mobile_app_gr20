@@ -7,7 +7,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 
-
 class CreatecardDetail extends StatefulWidget {
   final String imagePath;
   final Database database;
@@ -22,10 +21,8 @@ class CreatecardDetail extends StatefulWidget {
 }
 
 class CreatecardDetailState extends State<CreatecardDetail> {
-
   int _currentStep = 0;
   bool _isGoingForward = true;
-
 
   final thaiWordController = TextEditingController();
   final pronunController = TextEditingController();
@@ -39,16 +36,14 @@ class CreatecardDetailState extends State<CreatecardDetail> {
     final note = noteController.text;
     final imagePath = widget.imagePath;
 
-    if (thai.isNotEmpty &&
-        pronun.isNotEmpty &&
-        english.isNotEmpty) {
-      final card =CardModel(
-          thaiWord: thai,
-          pronunciation: pronun,
-          engWord: english,
-          note: note,
-          iconPath: imagePath,
-        );
+    if (thai.isNotEmpty && pronun.isNotEmpty && english.isNotEmpty) {
+      final card = CardModel(
+        thaiWord: thai,
+        pronunciation: pronun,
+        engWord: english,
+        note: note,
+        iconPath: imagePath,
+      );
       await widget.database.insert(
         'cards',
         card.toMap(),
@@ -66,13 +61,7 @@ class CreatecardDetailState extends State<CreatecardDetail> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder:
-            (context) => CardCollectionPage(
-              database: widget.database,
-              imagePath: widget.imagePath,
-            ),
-      ),
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 
@@ -133,7 +122,6 @@ class CreatecardDetailState extends State<CreatecardDetail> {
     );
   }
 
-  
   List<Step> stepList() => [
     Step(
       title: const Text('Verfiy Photo'),
@@ -145,49 +133,48 @@ class CreatecardDetailState extends State<CreatecardDetail> {
       title: const Text('Create Detail'),
       isActive: _currentStep >= 1,
       state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      content:  SingleChildScrollView(
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              "Create Card Detail",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF8806D8),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.center,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.file(
-                  File(widget.imagePath),
-                  width: 300,
-                  height: 300,
-                  fit: BoxFit.cover,
+      content: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "Create Card Detail",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF8806D8),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const Divider(
-              color: Colors.grey,
-              thickness: 1,
-              indent: 16,
-              endIndent: 16,
-            ),
-            InputSection(),
-          ],
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.file(
+                    File(widget.imagePath),
+                    width: 300,
+                    height: 300,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Divider(
+                color: Colors.grey,
+                thickness: 1,
+                indent: 16,
+                endIndent: 16,
+              ),
+              InputSection(),
+            ],
+          ),
         ),
-      ),
       ),
     ),
   ];
-
 
   @override
   Widget build(BuildContext context) {
