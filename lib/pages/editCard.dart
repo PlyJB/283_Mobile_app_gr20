@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
 import 'package:pic2thai/models/card_model.dart';
@@ -243,8 +245,8 @@ class _EditCardDetailState extends State<EditCardDetail> {
                 alignment: Alignment.center,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    widget.iconPath,
+                  child: Image.file(
+                      File(widget.iconPath),
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
