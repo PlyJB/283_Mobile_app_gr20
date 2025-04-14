@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pic2thai/models/conversation_model.dart';
 import 'package:pic2thai/main.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:pic2thai/pages/acheivement.dart';
+import 'package:pic2thai/pages/achievement.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Lesson extends StatefulWidget {

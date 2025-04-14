@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pic2thai/models/acheivement_model.dart'; // ตรวจสอบให้แน่ใจว่า import ไฟล์นี้
+import 'package:pic2thai/models/achievement_model.dart'; // ตรวจสอบให้แน่ใจว่า import ไฟล์นี้
 import 'package:sqflite/sqflite.dart';
 
 class AchievementPage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
-import 'package:pic2thai/pages/acheivement.dart';
+import 'package:pic2thai/pages/achievement.dart';
 import 'package:pic2thai/pages/editCard.dart';
 import 'package:pic2thai/main.dart';
 import 'package:sqflite/sqflite.dart';

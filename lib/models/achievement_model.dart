@@ -17,32 +17,32 @@ class AchievementModel {
     return [
       AchievementModel(
         name: 'Collect 20 cards',
-        iconPath: 'assets/acheivement/card_silver.png',
+        iconPath: 'assets/achievement/card_silver.png',
         condition: (collectedCards, _) => collectedCards >= 20,
       ),
       AchievementModel(
         name: 'Collect 50 cards',
-        iconPath: 'assets/acheivement/card_gold.png',
+        iconPath: 'assets/achievement/card_gold.png',
         condition: (collectedCards, _) => collectedCards >= 50,
       ),
       AchievementModel(
         name: 'Collect 100 cards',
-        iconPath: 'assets/acheivement/card_diamond.png',
+        iconPath: 'assets/achievement/card_diamond.png',
         condition: (collectedCards, _) => collectedCards >= 100,
       ),
       AchievementModel(
         name: 'Learn 20 conversations',
-        iconPath: 'assets/acheivement/exercise_silver.png',
+        iconPath: 'assets/achievement/exercise_silver.png',
         condition: (_, learnedConversations) => learnedConversations >= 20,
       ),
       AchievementModel(
         name: 'Learn 50 conversations',
-        iconPath: 'assets/acheivement/exercise_gold.png',
+        iconPath: 'assets/achievement/exercise_gold.png',
         condition: (_, learnedConversations) => learnedConversations >= 50,
       ),
       AchievementModel(
         name: 'Learn 100 conversations',
-        iconPath: 'assets/acheivement/exercise_diamond.png',
+        iconPath: 'assets/achievement/exercise_diamond.png',
         condition: (_, learnedConversations) => learnedConversations >= 100,
       ),
     ];
