@@ -5,11 +5,14 @@ import 'package:pic2thai/pages/createCardDetail.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:pic2thai/pages/camera.dart';
 
-
 class Createcard extends StatefulWidget {
   final String imagePath;
   final Database database;
-  const Createcard({super.key, required this.database, required this.imagePath});
+  const Createcard({
+    super.key,
+    required this.database,
+    required this.imagePath,
+  });
 
   @override
   State<Createcard> createState() => _CreatecardState();
@@ -30,7 +33,10 @@ class _CreatecardState extends State<Createcard> {
       title: const Text('Create Detail'),
       isActive: _currentStep >= 1,
       state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      content: CreatecardDetail(database: widget.database, imagePath: widget.imagePath),
+      content: CreatecardDetail(
+        database: widget.database,
+        imagePath: widget.imagePath,
+      ),
     ),
   ];
 
@@ -61,13 +67,14 @@ class _CreatecardState extends State<Createcard> {
           elevation: 0,
           currentStep: _currentStep,
           onStepContinue: () {
+            //==========TODO============
             if (_currentStep < (stepList().length - 1)) {
               setState(() {
                 _isGoingForward = true;
                 _currentStep += 1;
               });
             } else {
-              // ขั้นสุดท้าย: กด "Create"
+              // เวลากด "Create" =========เพิ่ม create ตรงนี้=============
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Row(

@@ -12,7 +12,11 @@ import 'package:sqflite/sqflite.dart';
 class CardCollectionPage extends StatefulWidget {
   final String imagePath;
   final Database database;
-  const CardCollectionPage({super.key, required this.database, required this.imagePath});
+  const CardCollectionPage({
+    super.key,
+    required this.database,
+    required this.imagePath,
+  });
 
   @override
   State<CardCollectionPage> createState() => _CardCollectionPageState();
@@ -91,35 +95,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
     );
   }
 
-  // Widget _searchBox() {
-  //   return Container(
-  //     margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
-  //     decoration: BoxDecoration(
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: const Color(0xff1D1617).withOpacity(0.01),
-  //           blurRadius: 10,
-  //           spreadRadius: 0.0,
-  //         ),
-  //       ],
-  //     ),
-  //     child: TextField(
-  //       decoration: InputDecoration(
-  //         border: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(28),
-  //           borderSide: BorderSide.none,
-  //         ),
-  //         filled: true,
-  //         fillColor: Colors.white,
-  //         contentPadding: const EdgeInsets.all(15),
-  //         hintText: 'Search card',
-  //         hintStyle: const TextStyle(color: Color(0xffDDDADA), fontSize: 14),
-  //         prefixIcon: const Icon(Icons.menu, color: Color(0xFF8806D8)),
-  //         suffixIcon: const Icon(Icons.search, color: Color(0xFF8806D8)),
-  //       ),
-  //     ),
-  //   );
-  // }
   /// update card to favorite
   void _toggleFavorite(CardModel card) async {
     setState(() {
@@ -134,6 +109,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
     );
   }
 
+  // card template
   Widget _buildCard(CardModel card) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -201,6 +177,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                 right: 0,
                 child: Column(
                   children: [
+                    // edit buttpn
                     IconButton(
                       icon: const Icon(
                         Icons.edit_outlined,
@@ -224,6 +201,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                         );
                       },
                     ),
+                    // delete button
                     IconButton(
                       icon: const Icon(
                         Icons.delete_outlined,
@@ -288,6 +266,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                           child: const Text('No'),
                                         ),
                                         // Yes Button
+                                        // ============TODO===============
+                                        //Delete card
                                         ElevatedButton(
                                           onPressed: () async {
                                             // Do delete logic here
@@ -387,14 +367,15 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
   }
 
   Widget _buildCardList() {
-    final filteredCards = cards.where((card) {
-    final thai = card.thaiWord.toLowerCase();
-    final eng = card.engWord.toLowerCase();
-    final pronun = card.pronunciation.toLowerCase();
-    return thai.contains(searchQuery) ||
-        eng.contains(searchQuery) ||
-        pronun.contains(searchQuery);
-  }).toList();
+    final filteredCards =
+        cards.where((card) {
+          final thai = card.thaiWord.toLowerCase();
+          final eng = card.engWord.toLowerCase();
+          final pronun = card.pronunciation.toLowerCase();
+          return thai.contains(searchQuery) ||
+              eng.contains(searchQuery) ||
+              pronun.contains(searchQuery);
+        }).toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -407,8 +388,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
           childAspectRatio: 0.65,
         ),
         itemBuilder: (context, index) {
-        final card = filteredCards[index];
-        return _buildCard(card);
+          final card = filteredCards[index];
+          return _buildCard(card);
         },
       ),
     );
@@ -431,7 +412,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
             PageRouteBuilder(
               transitionDuration: Duration(milliseconds: 300),
               pageBuilder:
-                  (context, animation, secondaryAnimation) => CameraPage(database: widget.database),
+                  (context, animation, secondaryAnimation) =>
+                      CameraPage(database: widget.database),
               transitionsBuilder: (
                 context,
                 animation,

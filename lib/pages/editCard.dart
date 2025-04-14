@@ -20,7 +20,6 @@ class EditCardDetail extends StatefulWidget {
     required this.note,
     required this.iconPath,
     required this.database,
-
   });
 
   @override
@@ -50,12 +49,7 @@ class _EditCardDetailState extends State<EditCardDetail> {
 
     await widget.database.update(
       'cards',
-      {
-        'thai': thai,
-        'pronunciation': pronun,
-        'english': eng,
-        'note': note,
-      },
+      {'thai': thai, 'pronunciation': pronun, 'english': eng, 'note': note},
       where: 'id = ?',
       whereArgs: [widget.id],
     );
@@ -70,9 +64,7 @@ class _EditCardDetailState extends State<EditCardDetail> {
           ],
         ),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.all(16),
         duration: const Duration(seconds: 2),
       ),
@@ -140,6 +132,9 @@ class _EditCardDetailState extends State<EditCardDetail> {
           Center(
             child: SizedBox(
               width: 300,
+              //Save button
+              //================TODO=================
+              // Update card detail
               child: ElevatedButton(
                 onPressed: () {
                   _saveEdit();
