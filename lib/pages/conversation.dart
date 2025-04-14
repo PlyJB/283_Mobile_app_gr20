@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pic2thai/models/conversation_model.dart';
 import 'package:pic2thai/pages/lesson.dart';
 import 'package:pic2thai/main.dart';
+import 'package:sqflite/sqflite.dart';
 
 class ConversationPage extends StatefulWidget {
-  const ConversationPage({super.key});
+  final Database database;
+  const ConversationPage({super.key, required this.database});
 
   @override
   State<ConversationPage> createState() => _ConversationPageState();
@@ -80,7 +82,7 @@ class _ConversationPageState extends State<ConversationPage> {
             PageRouteBuilder(
               pageBuilder:
                   (context, animation, secondaryAnimation) =>
-                      Lesson(convo: convo),
+                      Lesson(convo: convo, database: widget.database),
               transitionsBuilder: (
                 context,
                 animation,

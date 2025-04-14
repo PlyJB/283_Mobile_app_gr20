@@ -81,6 +81,14 @@ class _MainScreenState extends State<MainScreen> {
             isFav INTEGER NOT NULL DEFAULT 0
             )
           ''');
+        await db.execute('''
+            CREATE TABLE user_stats (
+              learn_count INTEGER
+            )
+          ''');
+
+        await db.insert('user_stats', {'learn_count': 0});
+
       },
     );
     return _db!;
@@ -102,13 +110,13 @@ class _MainScreenState extends State<MainScreen> {
   Widget _getBody(int index, Database db) {
     switch (index) {
       case 0:
-        return AchievementPage(database: db, learnedConversations: 0);
+        return AchievementPage(database: db);
       case 1:
         return CardCollectionPage(database: db, imagePath: widget.imagePath,);
       case 2:
         return TipsPage();
       case 3:
-        return const ConversationPage();
+        return ConversationPage(database: db,);
       default:
         return CardCollectionPage(database: db, imagePath: widget.imagePath,);
     }

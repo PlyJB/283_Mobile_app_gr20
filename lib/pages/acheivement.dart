@@ -5,9 +5,8 @@ import 'package:sqflite/sqflite.dart';
 
 class AchievementPage extends StatefulWidget {
   final Database database;
-  final int learnedConversations;
 
-  AchievementPage({required this.database, required this.learnedConversations});
+  AchievementPage({required this.database});
 
   @override
   _AchievementPageState createState() => _AchievementPageState();
@@ -16,12 +15,14 @@ class AchievementPage extends StatefulWidget {
 class _AchievementPageState extends State<AchievementPage> {
   List<AchievementModel> achievements = AchievementModel.getAchievements();
   int collectedCards = 0; // จำนวนการ์ดที่เก็บรวบรวม
+  int learnCount = 0; // จำนวนการเรียนรู้ที่เก็บรวบรวม
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
     loadCollectedCards();
+    getLearnCount();
   }
 
   Future<void> loadCollectedCards() async {
@@ -34,10 +35,20 @@ class _AchievementPageState extends State<AchievementPage> {
     });
   }
 
+  Future<void> getLearnCount() async {
+  final List<Map<String, dynamic>> result = await widget.database.query('user_stats');
+  learnCount = result.first['learn_count'];
+
+  checkAndUnlockAchievements();
+    setState(() {
+      isLoading = false;
+    });
+}
+
   void checkAndUnlockAchievements() {
     for (var achievement in achievements) {
       if (!achievement.isReceived &&
-          achievement.condition(collectedCards, widget.learnedConversations)) {
+          achievement.condition(collectedCards, learnCount)) {
         achievement.isReceived = true;
         achievement.receivedDate = DateTime.now();
       }

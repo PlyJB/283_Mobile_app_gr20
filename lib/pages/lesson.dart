@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pic2thai/models/conversation_model.dart';
 import 'package:pic2thai/main.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:pic2thai/pages/acheivement.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Lesson extends StatefulWidget {
+  final Database database;
   final ConvoModel convo;
 
-  const Lesson({super.key, required this.convo});
+  Lesson({super.key, required this.convo, required this.database});
 
   @override
   State<Lesson> createState() => _LessonState();
@@ -15,10 +18,17 @@ class Lesson extends StatefulWidget {
 class _LessonState extends State<Lesson> {
   final FlutterTts flutterTts = FlutterTts();
 
+  Future<void> increaseLearnCount() async {
+  await widget.database.rawUpdate(
+    'UPDATE user_stats SET learn_count = learn_count + 1'
+  );
+}
+
   Future _speak(String text) async {
     await flutterTts.setLanguage("th-TH"); // สำหรับภาษาไทย
     await flutterTts.setSpeechRate(0.5); // ความเร็วในการพูด
     await flutterTts.speak(text);
+
   }
 
   @override
@@ -86,6 +96,7 @@ class _LessonState extends State<Lesson> {
                         ),
                         onPressed: () {
                           _speak(article.thai); // อ่านข้อความเมื่อกด
+                          increaseLearnCount(); // เพิ่มจำนวนการเรียนรู้
                         },
                       ),
                     ],
