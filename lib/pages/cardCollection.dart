@@ -30,7 +30,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
     });
   }
 
-
   Future<void> _getCards() async {
     final List<Map<String, dynamic>> data = await widget.database.query(
       'cards',
@@ -54,7 +53,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       cards = loadedCards;
     });
   }
-
 
   String searchQuery = '';
 
@@ -298,7 +296,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                                 ),
                                               ),
                                             );
-                                            
+
                                             await _getCards(); // อัปเดตรายการหลังลบ
                                           },
                                           style: ElevatedButton.styleFrom(
@@ -309,7 +307,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                                   BorderRadius.circular(8),
                                             ),
                                           ),
-                                        // Yes Button
+                                          // Yes Button
                                           child: const Text('Yes'),
                                         ),
                                       ],
