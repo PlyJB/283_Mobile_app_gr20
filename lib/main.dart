@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 import 'package:pic2thai/pages/achievement.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/conversation.dart';
 import 'package:pic2thai/pages/tips.dart';
-import 'package:pic2thai/pages/checkCardPic.dart';
 
 
 void main() {

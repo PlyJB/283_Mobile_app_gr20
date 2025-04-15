@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
+import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:pic2thai/models/card_model.dart';
@@ -27,11 +28,11 @@ class CreatecardDetailState extends State<CreatecardDetail> {
   final engWordController = TextEditingController();
   final noteController = TextEditingController();
 
-  Future<void> insertCard() async {
-    final thai = thaiWordController.text;
-    final pronun = pronunController.text;
-    final english = engWordController.text;
-    final note = noteController.text;
+  Future<bool> insertCard() async {
+    final thai = thaiWordController.text.trim();
+    final pronun = pronunController.text.trim();
+    final english = engWordController.text.trim();
+    final note = noteController.text.trim();
     final imagePath = widget.imagePath;
 
     if (thai.isNotEmpty && pronun.isNotEmpty && english.isNotEmpty) {
@@ -47,20 +48,14 @@ class CreatecardDetailState extends State<CreatecardDetail> {
         card.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+      return true;
+
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),
+        const SnackBar(content: Text('Please fill in all fields')),  
       );
-      return;
+      return false;
     }
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Card saved!')));
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => MyApp()),
-    );
   }
 
   Widget InputSection() {
@@ -234,40 +229,41 @@ class CreatecardDetailState extends State<CreatecardDetail> {
             type: StepperType.horizontal,
             elevation: 0,
             currentStep: _currentStep,
-            onStepContinue: () {
-              if (_currentStep < (stepList().length - 1)) {
-                setState(() {
-                  _isGoingForward = true;
-                  _currentStep += 1;
-                });
-              } else {
-                // เวลากด "Create" =========เพิ่ม create ตรงนี้=============
-                insertCard();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Row(
-                      children: const [
-                        Icon(Icons.save, color: Colors.white),
-                        SizedBox(width: 10),
-                        Text("Card created!"),
-                      ],
-                    ),
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    margin: const EdgeInsets.all(16),
-                    duration: const Duration(seconds: 2),
-                  ),
-                );
+              onStepContinue: () async {
+                if (_currentStep < (stepList().length - 1)) {
+                  setState(() {
+                    _isGoingForward = true;
+                    _currentStep += 1;
+                  });
+                } else {
+                  final success = await insertCard();
+                  if (success) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Row(
+                          children: const [
+                            Icon(Icons.save, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text("Card created!"),
+                          ],
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        margin: const EdgeInsets.all(16),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
 
-                Future.delayed(const Duration(milliseconds: 500), () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => MyApp()),
-                    (route) => false,
-                  );
-                });
-              }
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => MyApp()),
+                        (route) => false,
+                      );
+                    });
+                  }
+                }
             },
             onStepCancel: () {
               if (_currentStep > 0) {
@@ -303,7 +299,7 @@ class CreatecardDetailState extends State<CreatecardDetail> {
                         ),
                       ),
                     ),
-                    if (_currentStep > 0) const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     if (_currentStep > 0)
                       ElevatedButton(
                         onPressed: details.onStepCancel,
@@ -319,6 +315,34 @@ class CreatecardDetailState extends State<CreatecardDetail> {
                         ),
                         child: const Text(
                           'Back',
+                          style: TextStyle(
+                            color: Color(0xFF8806D8),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    if (_currentStep == 0)
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CameraPage(database: widget.database,),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: const Text(
+                          'Retake the photo',
                           style: TextStyle(
                             color: Color(0xFF8806D8),
                             fontSize: 20,

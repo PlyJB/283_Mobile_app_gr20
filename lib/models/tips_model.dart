@@ -98,23 +98,35 @@ class TipsModel {
     );
     tips.add(
       TipsModel(
-        title: "Tips and Tricks",
-        articles: [Article(article: 'article test2')],
+        title: "Thai consonants",
+        articles: [
+          Article(
+            article:
+                'Thai has 44 consonants, but only 21 are used in the Thai language. \n'
+                'ก    ข    ฃ    ค    ฅ     ฆ     ง     จ     ฉ     ช\n'
+                'K   Kh  Kh  Kh  Kh  Kh  Ng  Ch  Ch  Ch  \n'
+                'ซ    ฌ   ญ    ฎ    ฏ   ด    ต    ถ    ท    น   \n'
+                'S   Ch  Ng  D    T    D    T    T    T    N  \n'
+                'บ    ป    ผ    ฝ    ฟ   ม    ย    ร    ล    ว   \n'
+                'B    P    Ph    F    F    M    Y   R   L   W  \n'
+                'ศ    ษ    ส    ห   ฬ    ฮ   \n'
+                'S    S    S    H    L    H  \n'
+                ),
+          Article(
+            article: 
+                'Thai has only 21 consonants that are used in the Thai language. \n'
+                'the remaining 23 consonants are used in loanwords from Pali, Sanskrit, and English. \n'
+          ),
+          Article(
+            article:
+                'Low-Class Consonants: \nค, ฅ, ฆ, ง, ช, ซ, ฌ, ญ, ฑ, ฒ, ณ, ท, ธ, \nน, พ, ฟ, ภ, ม, ย, ร, ล, ว, ฬ, ฮ\n'
+                'Middle-Class Consonants: \nก, จ, ฎ, ฏ, ด, ต, บ, ป\n'
+                'High-Class Consonants: \nข, ฃ, ฉ, ฐ, ถ, ผ, ฝ, ศ, ษ, ส\n',
+          ),
+        ],
       ),
     );
-    tips.add(
-      TipsModel(
-        title: "Tips and Tricks",
-        articles: [Article(article: 'article test3')],
-      ),
-    );
-    tips.add(
-      TipsModel(
-        title: "Tips and Tricks",
-        articles: [Article(article: 'article test4')],
-      ),
-    );
-
+   
     return tips;
   }
 }

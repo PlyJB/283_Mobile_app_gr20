@@ -177,13 +177,7 @@ class _EditCardDetailState extends State<EditCardDetail> {
                         children: [
                           Icon(Icons.edit, color: Colors.white),
                           SizedBox(width: 10),
-<<<<<<< HEAD
-                          Text(
-                            "Changes saved!, Edited: $id /$thai / $pronun / $eng / $note",
-                          ),
-=======
                           Text("Changes saved!"),
->>>>>>> 071b1132a4dc5e104c88893cb8caf9502b57769b
                         ],
                       ),
                       behavior: SnackBarBehavior.floating,

@@ -34,6 +34,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
   Future<void> _getCards() async {
     final List<Map<String, dynamic>> data = await widget.database.query(
       'cards',
+      orderBy: 'isFav DESC',
     );
     final List<CardModel> loadedCards = [];
     for (var map in data) {
