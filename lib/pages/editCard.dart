@@ -56,15 +56,14 @@ class _EditCardDetailState extends State<EditCardDetail> {
       note: note,
       iconPath: widget.iconPath,
     );
-
-    await widget.database.update(
-      'cards',
-      card.toMap(),
-      where: 'id = ?',
-      whereArgs: [widget.id],
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(
+    if (thai.isNotEmpty && pronun.isNotEmpty && eng.isNotEmpty) {
+      await widget.database.update(
+        'cards',
+        card.toMap(),
+        where: 'id = ?',
+        whereArgs: [widget.id],
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: const [
@@ -79,6 +78,14 @@ class _EditCardDetailState extends State<EditCardDetail> {
         duration: const Duration(seconds: 2),
       ),
     );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    
 
     await Future.delayed(const Duration(milliseconds: 500));
     Navigator.of(context).pushAndRemoveUntil(
@@ -188,13 +195,6 @@ class _EditCardDetailState extends State<EditCardDetail> {
                       duration: const Duration(seconds: 2),
                     ),
                   );
-
-                  Future.delayed(const Duration(milliseconds: 500), () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const MyApp()),
-                      (route) => false,
-                    );
-                  });
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8806D8),
