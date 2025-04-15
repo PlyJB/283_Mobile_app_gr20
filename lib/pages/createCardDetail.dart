@@ -48,11 +48,19 @@ class CreatecardDetailState extends State<CreatecardDetail> {
         card.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Card created!')));
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => MyApp()),
+          (route) => false,
+        );
+      });
       return true;
-
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),  
+        const SnackBar(content: Text('Please fill in all fields')),
       );
       return false;
     }
@@ -76,10 +84,10 @@ class CreatecardDetailState extends State<CreatecardDetail> {
               labelText: 'Thai Word',
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
-              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              fillColor: Color.fromARGB(245, 235, 231, 243),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
-                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
@@ -90,10 +98,10 @@ class CreatecardDetailState extends State<CreatecardDetail> {
               labelText: 'Pronunciation',
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
-              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              fillColor: Color.fromARGB(245, 235, 231, 243),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
-                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
@@ -104,10 +112,10 @@ class CreatecardDetailState extends State<CreatecardDetail> {
               labelText: 'English Word',
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
-              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              fillColor: Color.fromARGB(245, 235, 231, 243),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
-                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
@@ -125,10 +133,10 @@ class CreatecardDetailState extends State<CreatecardDetail> {
               labelText: 'Note (optional)',
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
-              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              fillColor: Color.fromARGB(245, 235, 231, 243),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
-                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
             ),
             maxLines: 2,
@@ -229,41 +237,34 @@ class CreatecardDetailState extends State<CreatecardDetail> {
             type: StepperType.horizontal,
             elevation: 0,
             currentStep: _currentStep,
-              onStepContinue: () async {
-                if (_currentStep < (stepList().length - 1)) {
-                  setState(() {
-                    _isGoingForward = true;
-                    _currentStep += 1;
-                  });
-                } else {
-                  final success = await insertCard();
-                  if (success) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: const [
-                            Icon(Icons.save, color: Colors.white),
-                            SizedBox(width: 10),
-                            Text("Card created!"),
-                          ],
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        margin: const EdgeInsets.all(16),
-                        duration: const Duration(seconds: 2),
+            onStepContinue: () async {
+              if (_currentStep < (stepList().length - 1)) {
+                setState(() {
+                  _isGoingForward = true;
+                  _currentStep += 1;
+                });
+              } else {
+                final success = await insertCard();
+                if (success) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Row(
+                        children: const [
+                          Icon(Icons.save, color: Colors.white),
+                          SizedBox(width: 10),
+                          Text("Card created!"),
+                        ],
                       ),
-                    );
-
-                    Future.delayed(const Duration(milliseconds: 500), () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => MyApp()),
-                        (route) => false,
-                      );
-                    });
-                  }
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      margin: const EdgeInsets.all(16),
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
                 }
+              }
             },
             onStepCancel: () {
               if (_currentStep > 0) {
@@ -327,7 +328,9 @@ class CreatecardDetailState extends State<CreatecardDetail> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CameraPage(database: widget.database,),
+                              builder:
+                                  (context) =>
+                                      CameraPage(database: widget.database),
                             ),
                           );
                         },
