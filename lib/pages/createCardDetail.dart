@@ -303,17 +303,14 @@ class CreatecardDetailState extends State<CreatecardDetail> {
                     SizedBox(height: 16),
                     if (_currentStep > 0)
                       ElevatedButton(
-                        onPressed: details.onStepCancel,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 12,
-                          ),
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyApp(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Back',
                           style: TextStyle(
