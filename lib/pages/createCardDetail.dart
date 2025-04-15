@@ -77,25 +77,43 @@ class CreatecardDetailState extends State<CreatecardDetail> {
           const SizedBox(height: 20),
           TextField(
             controller: thaiWordController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Thai Word',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
           ),
           const SizedBox(height: 10),
           TextField(
             controller: pronunController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Pronunciation',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
           ),
           const SizedBox(height: 10),
           TextField(
             controller: engWordController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'English Word',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -108,9 +126,15 @@ class CreatecardDetailState extends State<CreatecardDetail> {
           const SizedBox(height: 20),
           TextField(
             controller: noteController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Note (optional)',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
             maxLines: 2,
           ),
@@ -194,104 +218,118 @@ class CreatecardDetailState extends State<CreatecardDetail> {
             child: child,
           );
         },
-        child: Stepper(
-          key: ValueKey<int>(_currentStep),
-          steps: stepList(),
-          type: StepperType.horizontal,
-          elevation: 0,
-          currentStep: _currentStep,
-          onStepContinue: () {
-            if (_currentStep < (stepList().length - 1)) {
-              setState(() {
-                _isGoingForward = true;
-                _currentStep += 1;
-              });
-            } else {
-              // เวลากด "Create" =========เพิ่ม create ตรงนี้=============
-              insertCard();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Row(
-                    children: const [
-                      Icon(Icons.save, color: Colors.white),
-                      SizedBox(width: 10),
-                      Text("Card created!"),
-                    ],
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: const Color(
+                0xFF8806D8,
+              ), // วงกลม active/completed สีม่วงเข้ม
+              onPrimary: Colors.white, // สีของ icon ด้านใน
+              //
+            ),
+          ),
+          child: Stepper(
+            key: ValueKey<int>(_currentStep),
+            steps: stepList(),
+            type: StepperType.horizontal,
+            elevation: 0,
+            currentStep: _currentStep,
+            onStepContinue: () {
+              if (_currentStep < (stepList().length - 1)) {
+                setState(() {
+                  _isGoingForward = true;
+                  _currentStep += 1;
+                });
+              } else {
+                // เวลากด "Create" =========เพิ่ม create ตรงนี้=============
+                insertCard();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      children: const [
+                        Icon(Icons.save, color: Colors.white),
+                        SizedBox(width: 10),
+                        Text("Card created!"),
+                      ],
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    margin: const EdgeInsets.all(16),
+                    duration: const Duration(seconds: 2),
                   ),
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  margin: const EdgeInsets.all(16),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
-
-              Future.delayed(const Duration(milliseconds: 500), () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => MyApp()),
-                  (route) => false,
                 );
-              });
-            }
-          },
-          onStepCancel: () {
-            if (_currentStep > 0) {
-              setState(() {
-                _currentStep -= 1;
-              });
-            }
-          },
-          controlsBuilder: (BuildContext context, ControlsDetails details) {
-            return SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.min, // <-- ป้องกันการขยายไม่จำกัด
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    onPressed: details.onStepContinue,
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
-                      backgroundColor: const Color(0xFF8806D8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                    ),
-                    child: Text(
-                      _currentStep == 0 ? 'Yes' : 'Create',
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                  if (_currentStep > 0) const SizedBox(height: 16),
-                  if (_currentStep > 0)
+
+                Future.delayed(const Duration(milliseconds: 500), () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => MyApp()),
+                    (route) => false,
+                  );
+                });
+              }
+            },
+            onStepCancel: () {
+              if (_currentStep > 0) {
+                setState(() {
+                  _currentStep -= 1;
+                });
+              }
+            },
+            controlsBuilder: (BuildContext context, ControlsDetails details) {
+              return SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // <-- ป้องกันการขยายไม่จำกัด
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
                     ElevatedButton(
-                      onPressed: details.onStepCancel,
+                      onPressed: details.onStepContinue,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 24,
                           vertical: 12,
                         ),
-                        backgroundColor: Colors.white,
+                        backgroundColor: const Color(0xFF8806D8),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
                       ),
-                      child: const Text(
-                        'Back',
-                        style: TextStyle(
-                          color: Color(0xFF8806D8),
+                      child: Text(
+                        _currentStep == 0 ? 'Yes' : 'Create',
+                        style: const TextStyle(
+                          color: Colors.white,
                           fontSize: 20,
                         ),
                       ),
                     ),
-                ],
-              ),
-            );
-          },
+                    if (_currentStep > 0) const SizedBox(height: 16),
+                    if (_currentStep > 0)
+                      ElevatedButton(
+                        onPressed: details.onStepCancel,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: const Text(
+                          'Back',
+                          style: TextStyle(
+                            color: Color(0xFF8806D8),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

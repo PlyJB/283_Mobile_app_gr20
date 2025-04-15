@@ -48,8 +48,14 @@ class _EditCardDetailState extends State<EditCardDetail> {
     final pronun = pronunController.text.trim();
     final eng = engWordController.text.trim();
     final note = noteController.text.trim();
-    final card = CardModel(id: widget.id, thaiWord: thai, pronunciation: pronun, engWord: eng, note: note, iconPath: widget.iconPath);
-
+    final card = CardModel(
+      id: widget.id,
+      thaiWord: thai,
+      pronunciation: pronun,
+      engWord: eng,
+      note: note,
+      iconPath: widget.iconPath,
+    );
 
     await widget.database.update(
       'cards',
@@ -95,25 +101,43 @@ class _EditCardDetailState extends State<EditCardDetail> {
           const SizedBox(height: 20),
           TextField(
             controller: thaiWordController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Thai Word',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
           ),
           const SizedBox(height: 10),
           TextField(
             controller: pronunController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Pronunciation',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
           ),
           const SizedBox(height: 10),
           TextField(
             controller: engWordController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'English Word',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -126,9 +150,15 @@ class _EditCardDetailState extends State<EditCardDetail> {
           const SizedBox(height: 20),
           TextField(
             controller: noteController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Note (optional)',
-              border: OutlineInputBorder(),
+              hintStyle: TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Color.fromARGB(245, 235, 231, 243), // สีเทาอ่อน
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), // ปรับให้มุมโค้ง
+                borderSide: BorderSide.none, // ไม่มีเส้นขอบ
+              ),
             ),
             maxLines: 2,
           ),
@@ -147,7 +177,13 @@ class _EditCardDetailState extends State<EditCardDetail> {
                         children: [
                           Icon(Icons.edit, color: Colors.white),
                           SizedBox(width: 10),
+<<<<<<< HEAD
+                          Text(
+                            "Changes saved!, Edited: $id /$thai / $pronun / $eng / $note",
+                          ),
+=======
                           Text("Changes saved!"),
+>>>>>>> 071b1132a4dc5e104c88893cb8caf9502b57769b
                         ],
                       ),
                       behavior: SnackBarBehavior.floating,
@@ -236,7 +272,7 @@ class _EditCardDetailState extends State<EditCardDetail> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.file(
-                      File(widget.iconPath),
+                    File(widget.iconPath),
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
