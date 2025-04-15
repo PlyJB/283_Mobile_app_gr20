@@ -31,7 +31,7 @@ class _CameraPageState extends State<CameraPage> {
       _setupCamera();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("ต้องการอนุญาตให้ใช้กล้อง")),
+        const SnackBar(content: Text("Permission is needed.")),
       );
     }
   }
@@ -100,7 +100,7 @@ class _CameraPageState extends State<CameraPage> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('ถ่ายรูปสำเร็จ')),
+        const SnackBar(content: Text('Picture taken successfully')),
       );
 
       Navigator.of(context).push(
@@ -112,7 +112,7 @@ class _CameraPageState extends State<CameraPage> {
         ),
       );
     } catch (e) {
-      debugPrint("ถ่ายรูปผิดพลาด: $e");
+      debugPrint("Fail due to: $e");
     }
   }
 }

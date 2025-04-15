@@ -4,7 +4,6 @@ class ConvoModel {
 
   ConvoModel({required this.title, required this.articles});
 
-  get database => null;
   static List<ConvoModel> getConvo() {
     List<ConvoModel> convos = [];
     convos.add(

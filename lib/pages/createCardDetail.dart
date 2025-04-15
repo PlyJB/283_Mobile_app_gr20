@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
-import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/checkCardPic.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:pic2thai/models/card_model.dart';
-import 'package:pic2thai/pages/camera.dart';
 
 class CreatecardDetail extends StatefulWidget {
   final String imagePath;

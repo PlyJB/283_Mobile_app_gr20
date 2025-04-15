@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:pic2thai/main.dart';
 import 'package:pic2thai/models/card_model.dart';
@@ -60,7 +59,6 @@ class _EditCardDetailState extends State<EditCardDetail> {
 
     await widget.database.update(
       'cards',
-      // {'thai': thai, 'pronunciation': pronun, 'english': eng, 'note': note},
       card.toMap(),
       where: 'id = ?',
       whereArgs: [widget.id],
@@ -169,17 +167,9 @@ class _EditCardDetailState extends State<EditCardDetail> {
             child: SizedBox(
               width: 300,
               //Save button
-              //================TODO=================
               // Update card detail
               child: ElevatedButton(
                 onPressed: () {
-                  final id = widget.id;
-                  final thai = thaiWordController.text;
-                  final pronun = pronunController.text;
-                  final eng = engWordController.text;
-                  final note = noteController.text;
-
-                  print('Edited: $id /$thai / $pronun / $eng / $note');
                   _saveEdit();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -187,9 +177,13 @@ class _EditCardDetailState extends State<EditCardDetail> {
                         children: [
                           Icon(Icons.edit, color: Colors.white),
                           SizedBox(width: 10),
+<<<<<<< HEAD
                           Text(
                             "Changes saved!, Edited: $id /$thai / $pronun / $eng / $note",
                           ),
+=======
+                          Text("Changes saved!"),
+>>>>>>> 071b1132a4dc5e104c88893cb8caf9502b57769b
                         ],
                       ),
                       behavior: SnackBarBehavior.floating,

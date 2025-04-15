@@ -24,10 +24,6 @@ class Tipsdetails extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: const Color(0xFF8806D8),
           ),
-          // const TextStyle(
-          //   color: const Color(0xFF8806D8),
-          //   fontWeight: FontWeight.bold,
-          // ),
         ),
         centerTitle: true,
         elevation: 0,
@@ -46,7 +42,6 @@ class Tipsdetails extends StatelessWidget {
                   height: 1.5,
                   color: Colors.black87,
                 ),
-                // const TextStyle(fontSize: 16, height: 1.5),
               ),
             );
           },

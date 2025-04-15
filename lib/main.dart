@@ -147,22 +147,6 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  // with Logo
-  // Alignment _getAlignByIndex(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       return Alignment(-0.95, 0); // ซ้ายสุด
-  //     case 1:
-  //       return Alignment(-0.6, 0); // ซ้ายกลาง
-  //     case 2:
-  //       return Alignment(0.53, 0); // ขวากลาง
-  //     case 3:
-  //       return Alignment(0.95, 0); // ขวาสุด
-  //     default:
-  //       return Alignment.center;
-  //   }
-  // }
-
   Alignment _getAlignByIndex(int index) {
     switch (index) {
       case 0:
@@ -263,35 +247,11 @@ class _MainScreenState extends State<MainScreen> {
                   assetPath: 'assets/icons/editor_choice.png',
                 ),
                 _buildNavItem(index: 1, assetPath: 'assets/icons/card.png'),
-                // const SizedBox(width: 98),
                 _buildNavItem(index: 2, assetPath: 'assets/icons/tips.png'),
-                _buildNavItem(
-                  index: 3,
-                  assetPath: 'assets/icons/conversation.png',
-                ),
+                _buildNavItem(index: 3, assetPath: 'assets/icons/conversation.png'),
               ],
             ),
           ),
-          // Positioned(
-          //   bottom: 30,
-          //   child: Container(
-          //     width: 98,
-          //     height: 98,
-          //     decoration: BoxDecoration(
-          //       color: Color(0xFF8806D8),
-          //       shape: BoxShape.circle,
-          //     ),
-          //     child: Padding(
-          //       padding: const EdgeInsets.all(10),
-          //       child: Image.asset(
-          //         'assets/icons/logo.png',
-          //         width: 40,
-          //         height: 40,
-          //         color: Colors.white,
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

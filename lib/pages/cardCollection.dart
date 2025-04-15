@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
-import 'package:pic2thai/pages/checkCardPic.dart';
-import 'package:pic2thai/pages/achievement.dart';
 import 'package:pic2thai/pages/editCard.dart';
 import 'package:pic2thai/main.dart';
 import 'package:sqflite/sqflite.dart';
@@ -156,7 +153,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                       style: AppTextStyles.heading.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
-                      // const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       card.pronunciation,
@@ -165,7 +161,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                         fontSize: 16,
                         color: Colors.grey,
                       ),
-                      // const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -265,8 +260,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                           ),
                                           child: const Text('No'),
                                         ),
-                                        // Yes Button
-                                        // ============TODO===============
                                         //Delete card
                                         ElevatedButton(
                                           onPressed: () async {
@@ -315,6 +308,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                                   BorderRadius.circular(8),
                                             ),
                                           ),
+                                        // Yes Button
                                           child: const Text('Yes'),
                                         ),
                                       ],
@@ -339,11 +333,6 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     color: card.isFav ? Color(0xFF8806D8) : Colors.grey,
                     size: 50,
                   ),
-                  // onPressed: () {
-                  //   setState(() {
-                  //     card.isFav = !card.isFav;
-                  //   });
-                  // },
                   onPressed: () => _toggleFavorite(card),
                 ),
               ),
