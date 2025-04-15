@@ -365,23 +365,33 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
               eng.contains(searchQuery) ||
               pronun.contains(searchQuery);
         }).toList();
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GridView.builder(
-        itemCount: filteredCards.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          childAspectRatio: 0.65,
+    if (filteredCards.isEmpty) {
+      return Expanded(
+        child: Center(
+          child: Text(
+            'No cards found',
+            style: AppTextStyles.body.copyWith(color: Colors.grey),
+          ),
         ),
-        itemBuilder: (context, index) {
-          final card = filteredCards[index];
-          return _buildCard(card);
-        },
-      ),
-    );
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: GridView.builder(
+          itemCount: filteredCards.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: 0.65,
+          ),
+          itemBuilder: (context, index) {
+            final card = filteredCards[index];
+            return _buildCard(card);
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -392,7 +402,17 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
         children: [
           _searchBox(),
           const SizedBox(height: 20),
-          Expanded(child: _buildCardList()),
+          if (cards.isEmpty)
+            Expanded(
+              child: Center(
+                child: Text(
+                  'No cards created yet',
+                  style: AppTextStyles.body.copyWith(color: Colors.grey),
+                ),
+              ),
+            )
+          else
+            Expanded(child: _buildCardList()),
         ],
       ),
       floatingActionButton: FloatingActionButton(

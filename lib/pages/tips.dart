@@ -141,17 +141,27 @@ class _TipsPageState extends State<TipsPage> {
             ),
           ),
           _searchBox(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                itemCount: filteredTips.length,
-                itemBuilder: (context, index) {
-                  return _buildTips(filteredTips[index]);
-                },
+          if (filteredTips.isEmpty)
+            Expanded(
+              child: Center(
+                child: Text(
+                  'No tips found',
+                  style: AppTextStyles.body.copyWith(color: Colors.grey),
+                ),
+              ),
+            )
+          else
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.builder(
+                  itemCount: filteredTips.length,
+                  itemBuilder: (context, index) {
+                    return _buildTips(filteredTips[index]);
+                  },
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

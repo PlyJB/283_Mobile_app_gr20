@@ -140,17 +140,29 @@ class _ConversationPageState extends State<ConversationPage> {
             ),
           ),
           _searchBox(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                itemCount: filteredConvo.length,
-                itemBuilder: (context, index) {
-                  return _buildConvo(filteredConvo[index]);
-                },
+
+          // 🔁 ตรงนี้
+          if (filteredConvo.isEmpty)
+            Expanded(
+              child: Center(
+                child: Text(
+                  'No conversation found',
+                  style: AppTextStyles.body.copyWith(color: Colors.grey),
+                ),
+              ),
+            )
+          else
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.builder(
+                  itemCount: filteredConvo.length,
+                  itemBuilder: (context, index) {
+                    return _buildConvo(filteredConvo[index]);
+                  },
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
