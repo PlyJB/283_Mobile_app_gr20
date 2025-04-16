@@ -303,6 +303,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                             );
 
                                             await _getCards(); // อัปเดตรายการหลังลบ
+                                            Navigator.of(context).pop();
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Color(0xFF8806D8),
