@@ -68,33 +68,6 @@ class ConvoModel {
     );
     convos.add(
       ConvoModel(
-        title: "Shopping",
-        articles: [
-          Article(
-            thai: "ราคาเท่าไหร่",
-            english: "How much is it?",
-            pheonetic: "rakha thao rai",
-          ),
-          Article(
-            thai: "แพงไปไหม",
-            english: "Is it expensive?",
-            pheonetic: "paeng pai mai",
-          ),
-          Article(
-            thai: "ลดได้ไหม",
-            english: "Can you lower the price?",
-            pheonetic: "lot dai mai",
-          ),
-          Article(
-            thai: "ลดหน่อยได้ไหม",
-            english: "Can you lower the price a bit?",
-            pheonetic: "lot noi dai mai",
-          ),
-        ],
-      ),
-    );
-    convos.add(
-      ConvoModel(
         title: "Transportation",
         articles: [
           Article(
