@@ -127,44 +127,6 @@ class _AchievementPageState extends State<AchievementPage> {
                         ),
                       );
                     }
-
-                  // itemBuilder: (context, index) {
-                  //   final achievement = receivedAchievements[index];
-                  //   return Column(
-                  //     children: [
-                  //       Container(
-                  //         padding: EdgeInsets.all(8.w),
-                  //         // height: 180,
-                  //         decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(20),
-                  //           color: Color(0xFFF6F6FA),
-                  //         ),
-                  //         child: Column(
-                  //           children: [
-                  //             Image.asset(achievement.iconPath, width: 100.w),
-                  //             SizedBox(height: 8),
-                  //             Text(
-                  //               achievement.name,
-                  //               style: TextStyle(
-                  //                 fontWeight: FontWeight.bold,
-                  //                 color: Colors.black,
-                  //               ),
-                  //               textAlign: TextAlign.center,
-                  //             ),
-                  //             SizedBox(height: 4),
-                  //             Text(
-                  //               ' ${achievement.receivedDate != null ? DateFormat('dd MMM yyyy').format(achievement.receivedDate!) : '--, --,----'}',
-                  //               style: TextStyle(
-                  //                 color: const Color(0xFF8806D8),
-                  //                 fontSize: 12,
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   );
-                  // },
                 ),
       ),
     );
