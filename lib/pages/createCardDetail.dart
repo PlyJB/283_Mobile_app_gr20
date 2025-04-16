@@ -158,48 +158,52 @@ class CreatecardDetailState extends State<CreatecardDetail> {
       title: const Text('Create Detail'),
       isActive: _currentStep >= 1,
       state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      content: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                "Create Card Detail",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF8806D8),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.file(
-                    File(widget.imagePath),
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1,
-                indent: 16,
-                endIndent: 16,
-              ),
-              InputSection(),
-            ],
-          ),
-        ),
-      ),
+      content: detailView(),
     ),
   ];
+
+  SingleChildScrollView detailView() {
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Create Card Detail",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF8806D8),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.center,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.file(
+                  File(widget.imagePath),
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Divider(
+              color: Colors.grey,
+              thickness: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
+            InputSection(),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
