@@ -35,17 +35,6 @@ class MyApp extends StatelessWidget {
       );
     },
   );
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   theme: ThemeData(
-    //     fontFamily: 'CustomFont',
-    //     textTheme: TextTheme(
-    //       headlineLarge: AppTextStyles.heading,
-    //       bodyLarge: AppTextStyles.body,
-    //     ),
-    //   ),
-    //   home: const MainScreen(), // Use MainScreen instead of HomePage
-    // );
   }
 }
 
