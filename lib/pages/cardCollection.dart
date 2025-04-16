@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pic2thai/models/card_model.dart';
 import 'package:pic2thai/pages/camera.dart';
 import 'package:pic2thai/pages/editCard.dart';
@@ -111,7 +112,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 3,
       child: SizedBox(
-        height: 240,
+        height: 240.h,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -130,9 +131,10 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     ), // ปรับค่าความมนตามต้องการ
                     child: Image.file(
                       File(card.iconPath),
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.cover,
+                      width: 140.w,
+                      height: 140.h,
+                      fit: BoxFit.fitWidth ,
+
                     ),
                   ),
                 ),

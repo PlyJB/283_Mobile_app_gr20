@@ -5,6 +5,7 @@ import 'package:pic2thai/pages/achievement.dart';
 import 'package:pic2thai/pages/cardCollection.dart';
 import 'package:pic2thai/pages/conversation.dart';
 import 'package:pic2thai/pages/tips.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 void main() {
@@ -16,17 +17,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'CustomFont',
-        textTheme: TextTheme(
-          headlineLarge: AppTextStyles.heading,
-          bodyLarge: AppTextStyles.body,
+    return ScreenUtilInit(
+    designSize: const Size(375, 812),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    builder: (context, child) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'CustomFont',
+          textTheme: TextTheme(
+            headlineLarge: AppTextStyles.heading,
+            bodyLarge: AppTextStyles.body,
+          ),
         ),
-      ),
-      home: const MainScreen(), // Use MainScreen instead of HomePage
-    );
+        home: const MainScreen(),
+      );
+    },
+  );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   theme: ThemeData(
+    //     fontFamily: 'CustomFont',
+    //     textTheme: TextTheme(
+    //       headlineLarge: AppTextStyles.heading,
+    //       bodyLarge: AppTextStyles.body,
+    //     ),
+    //   ),
+    //   home: const MainScreen(), // Use MainScreen instead of HomePage
+    // );
   }
 }
 
