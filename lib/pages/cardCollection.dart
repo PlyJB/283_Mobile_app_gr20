@@ -112,7 +112,7 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 3,
       child: SizedBox(
-        height: 240.h,
+        height: 240,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -131,10 +131,9 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                     ), // ปรับค่าความมนตามต้องการ
                     child: Image.file(
                       File(card.iconPath),
-                      width: 140.w,
-                      height: 140.h,
-                      fit: BoxFit.fitWidth ,
-
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -154,6 +153,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                       style: AppTextStyles.heading.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                     Text(
                       card.pronunciation,
