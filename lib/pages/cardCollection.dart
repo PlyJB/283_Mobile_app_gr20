@@ -229,13 +229,21 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
                                       color: Color(0xFF8806D8),
                                       size: 50,
                                     ),
-                                    const SizedBox(height: 16),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                          0.02,
+                                    ),
                                     const Text(
                                       'Are you sure you want to delete?',
                                       textAlign: TextAlign.center,
                                       style: AppTextStyles.body,
                                     ),
-                                    const SizedBox(height: 24),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                          0.02,
+                                    ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -373,7 +381,8 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        // padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
         child: GridView.builder(
           itemCount: filteredCards.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -397,8 +406,9 @@ class _CardCollectionPageState extends State<CardCollectionPage> {
       backgroundColor: const Color(0xFFF5F3FF),
       body: Column(
         children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           _searchBox(),
-          const SizedBox(height: 20),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           if (cards.isEmpty)
             Expanded(
               child: Center(
