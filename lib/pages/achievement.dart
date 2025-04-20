@@ -54,7 +54,6 @@ class _AchievementPageState extends State<AchievementPage> {
     for (var achievement in achievements) {
       if (!achievement.isReceived && achievement.condition(collectedCards, learnCount)) {
         achievement.isReceived = true;
-        achievement.receivedDate ??= DateTime.now();
       }
     }
   }
@@ -111,16 +110,6 @@ class _AchievementPageState extends State<AchievementPage> {
                                 color: Colors.black,
                               ),
                               textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              achievement.receivedDate != null
-                                  ? DateFormat('dd MMM yyyy').format(achievement.receivedDate!)
-                                  : '--, --,----',
-                              style: TextStyle(
-                                color: Color(0xFF8806D8),
-                                fontSize: 12,
-                              ),
                             ),
                           ],
                         ),

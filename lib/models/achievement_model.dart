@@ -3,14 +3,12 @@ class AchievementModel {
   final String iconPath;
   final bool Function(int collectedCards, int learnedConversations) condition;
   bool isReceived;
-  DateTime? receivedDate;
 
   AchievementModel({
     required this.name,
     required this.iconPath,
     required this.condition,
     this.isReceived = false,
-    this.receivedDate,
   });
 
   static List<AchievementModel> getAchievements() {
