@@ -52,10 +52,9 @@ class _AchievementPageState extends State<AchievementPage> {
 
   void checkAndUnlockAchievements() {
     for (var achievement in achievements) {
-      if (!achievement.isReceived &&
-          achievement.condition(collectedCards, learnCount)) {
+      if (!achievement.isReceived && achievement.condition(collectedCards, learnCount)) {
         achievement.isReceived = true;
-        achievement.receivedDate = DateTime.now();
+        achievement.receivedDate ??= DateTime.now();
       }
     }
   }
